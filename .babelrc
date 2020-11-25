@@ -1,0 +1,33 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "loose":true,
+      "modules": false,  // 关闭babel的模块化，使用webpack的模块化，这样可以使用tree-shaking
+      // "targets": {
+      //   "browsers": ["Chrome >=59"]
+      // },
+    }],
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    ["relay", { "artifactDirectory": "./src/__generated__/relay/" }],
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": "css"
+    }],
+    ["@babel/plugin-transform-runtime"],
+    "@babel/plugin-proposal-class-properties",
+    ["@babel/plugin-proposal-decorators", {
+      "decoratorsBeforeExport": true
+    }],
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        "transform-remove-console"
+      ]
+    }
+  }
+}

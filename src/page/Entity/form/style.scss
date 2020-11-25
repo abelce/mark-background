@@ -1,0 +1,15 @@
+.entity {
+    padding: 12px;
+    margin: 32px;
+    .header {
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        input {
+            width: 200px;
+        }
+    }
+    .ordinal {
+        width: 40px;
+    }
+}

@@ -1,0 +1,51 @@
+/*
+ * File: tsconfig.json
+ * Project: wait
+ * File Created: Tuesday, 24th November 2020 10:56:22 pm
+ * Author: zxtang (1061225829@qq.com)
+ * -----
+ * Last Modified: Tuesday, 24th November 2020 10:56:22 pm
+ * Modified By: zxtang (1061225829@qq.com>)
+ * -----
+ * Copyright 2017 - 2020 Your Company, Your Company
+ */
+{
+  "compilerOptions": {
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "sourceMap": true,
+    "baseUrl": ".",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@@/*": ["./src/.umi/*"]
+    }
+  },
+  "include": [
+    "mock/**/*",
+    "src/**/*",
+    "tests/**/*",
+    "test/**/*",
+    "__test__/**/*",
+    "typings/**/*",
+    "config/**/*",
+    ".eslintrc.js",
+    ".stylelintrc.js",
+    ".prettierrc.js",
+    "jest.config.js",
+    "mock/*"
+  ],
+  "exclude": ["node_modules", "build", "dist", "scripts", "src/.umi/*", "webpack", "jest"]
+}

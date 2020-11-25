@@ -1,0 +1,23 @@
+.layout {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: auto;
+    // display: flex;
+    flex-direction: column;
+    &_header {
+        height: 55px;
+        background: #ffffff;
+        padding: 0 48px;
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+    &_content {
+        min-height: calc(100vh - 55px);
+        background-color: #eceff1;
+        overflow: auto;
+    }
+}

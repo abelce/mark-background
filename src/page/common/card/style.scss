@@ -1,0 +1,60 @@
+.card {
+    padding: 24px 30px;
+    // height: 130px;
+    // margin: 8px 0;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px dashed #dae1ea;
+    position: relative;
+    &:last-child {
+        border-bottom: none;
+    }
+    .repo-pic {
+        margin-right: 15px;
+        height: 100%;
+    }
+    .repo-header {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        .repo-type {
+            color: rgb(183, 30, 215);
+            margin-right: 2px;
+        }
+        .repo-title {
+            font-size: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+
+        }
+    }
+    .repo-desc {
+        margin-right: 20px;
+        overflow: hidden;
+        flex: 1;
+    }
+    .repo-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .info-block {
+            margin: 0 8px;
+            font-size: 14px;
+            span {
+                margin-left: 4px;
+            }
+        }
+    }
+    .actions {
+        position: absolute;
+        top: 4px;
+        right: 24px;
+        a {
+            font-size: 12px;
+            margin: 0 8px;
+        }
+    }
+}

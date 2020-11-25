@@ -1,0 +1,15 @@
+.moreButton {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+
+    > a {
+        display: block;
+        padding: 2px 12px;
+        border: 1px solid;
+        font-weight: 500;
+    }
+}
+.btn_close {
+    display: none;
+}

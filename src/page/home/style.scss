@@ -1,0 +1,139 @@
+$linkColor:  #3a99d8;
+
+.blog {
+    width: 900px;
+    margin: 24px auto 0;
+}
+
+.detail {
+    width: 900px;
+    margin: 0 auto;
+    // background: #ffffff;
+    margin-top: 20px;
+
+    &_header {
+        border-bottom: 1px solid #e7e7e7;
+        padding: 20px;
+
+        .name {
+            font-size: 20px;
+            display: block;
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+
+        .base-info {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                i {
+                    font-size: 14px;
+                }
+
+                >span {
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+
+    &_contentContainer {
+        padding: 30px 20px;
+
+        .desc {
+            border-left: 8px solid #dddfe4;
+            background: #eef0f4;
+            margin: 0 0 24px;
+            padding: 16px;
+            overflow: auto;
+        }
+    }
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+
+    &_header {
+        padding: 20px;
+        display: flex;
+        justify-content: flex-start;
+
+        >input {
+            border: 1px solid;
+            height: 30px;
+            border-radius: 2px;
+            padding: 0 4px;
+            width: 800px;
+            border-color: #eaeaea;
+        }
+
+        >button {
+            margin-left: 24px;
+            width: 100px;
+        }
+    }
+
+    &_desc {
+        margin: 12px 0;
+        padding: 0 20px;
+
+        >textarea {
+            width: 100%;
+        }
+    }
+
+    &_content {
+        flex: 1;
+        background: #ffffff;
+        display: flex;
+        overflow: hidden;
+
+        #test-editormd {
+            flex: 1;
+        }
+    }
+}
+
+.blog_result {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &_body {
+        width: 500px;
+        padding: 24px;
+        background-color: #ffffff;
+    }
+    &_header {
+        &_link {
+            color: $linkColor;
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            > svg {
+                width: 20px;
+            }
+        }
+    }
+    &_content {
+        background-color: #f5f5f5;
+        padding: 12px 4px;
+        margin: 12px 0;
+    }
+    &_footer {
+        padding: 12px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    &_success {
+        color: green;
+    }
+    &_create {
+        color: $linkColor;
+    }
+}

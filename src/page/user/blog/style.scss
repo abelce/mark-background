@@ -1,0 +1,141 @@
+$linkColor:  #3a99d8;
+
+.blog_container {
+    display: flex;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.blog {
+    margin: 24px auto;
+    flex: 1;
+    background-color: #ffffff;
+    padding: 24px;
+    > hr {
+        margin: 12px 0;
+    }
+}
+
+.blog_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > h1 {
+        font-size: 20px;
+    }
+}
+
+.blog_sidebar {
+    width: 300px;
+    background-color: transparent;
+    margin-right: 12px;
+    margin-top:24px;
+    &_info {
+        background-color: #ffffff;
+        padding: 12px;
+        > hr {
+            margin: 12px 0;
+        }
+    }
+    .statistic {
+        display: flex;
+        &_item {
+            flex: 1;
+            text-align: center;
+        }
+    }
+    &_user {
+        display: flex;
+        .name {
+            margin-left: 12px;
+        }
+    }
+    &_actions > a {
+        margin-top: 12px;
+    }
+}
+
+.detail_container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+.detail {
+    width: 900px;
+    margin-top: 20px;
+    position: relative;
+    // flex: 1 0 auto;
+
+    &_content {
+        background: #ffffff;
+    }
+
+    &_header {
+        border-bottom: 1px solid #e7e7e7;
+        padding: 20px;
+
+        .name {
+            font-size: 20px;
+            display: block;
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+
+        .base-info {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                i {
+                    font-size: 14px;
+                }
+
+                >span {
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+
+    &_body {
+        padding: 30px 20px;
+
+        .desc {
+            border-left: 8px solid #dddfe4;
+            background: #eef0f4;
+            margin: 0 0 24px;
+            padding: 16px;
+            overflow: auto;
+        }
+    }
+    .operations {
+        position: fixed;
+        top: 200px;
+        left: calc((100vw - 900px)/2 + 900px + 24px);
+        &_list {
+            background-color: #ffffff;
+        }
+        &_item {
+            display: block;
+            padding: 12px;
+            height: 1;
+            cursor: pointer;
+
+            > svg {
+                width: 20px;
+                height: 20px;
+            }
+            > span {
+                display: block;
+                text-align: center;
+                line-height: 1;
+            }
+        }
+        &_item_active {
+            color: #ff7474;
+            border-color: #ff7474;
+        }
+    }
+}

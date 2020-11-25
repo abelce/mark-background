@@ -1,0 +1,21 @@
+image: node:alpine
+
+# before_script:
+#   - npm install # 在执行我们的构建任务前先安装依赖
+
+# cache:
+#   paths:
+#     - node_modules
+#     - .yarn
+
+stages:
+  - prod
+  
+Build to production:
+  stage: prod
+  tags:
+    - wait-tag
+  script:
+    - npm run linux:prod
+
+    
