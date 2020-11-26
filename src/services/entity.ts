@@ -1,9 +1,14 @@
-import http from '@common/utils/http';
+import http from '@/common/utils/http';
+
+
+function getEntityNameLowerCase(entityName: string) {
+  return entityName[0].toLowerCase() + entityName.slice(1);
+}
 
 export async function createEntity(entityName:string, data: any) {
   return http({
     method: 'post',
-    url: `/${entityName}`,
+    url: `/${getEntityNameLowerCase(entityName)}`,
     data
 });
 }
@@ -11,7 +16,7 @@ export async function createEntity(entityName:string, data: any) {
 export async function updateEntity(entityName:string, data: any) {
   return http({
     method: 'PUT',
-    url: `/${entityName}/${data.id}`,
+    url: `/${getEntityNameLowerCase(entityName)}/${data.id}`,
     data,
   });
 }
@@ -19,7 +24,7 @@ export async function updateEntity(entityName:string, data: any) {
 export async function deleteEntity(entityName:string, id: string) {
   return http( {
     method: 'PUT',
-    url: `/${entityName}`,
+    url: `/${getEntityNameLowerCase(entityName)}`,
     data: {
       id,
     },
@@ -29,6 +34,6 @@ export async function deleteEntity(entityName:string, id: string) {
 export async function getEntityByID(entityName:string, id: string) {
   return http({
     method: 'get',
-    url: `/${entityName}/${id}`,
+    url: `/${getEntityNameLowerCase(entityName)}/${id}`,
   });
 }

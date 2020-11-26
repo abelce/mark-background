@@ -7,8 +7,8 @@ export interface IEntity {
 export interface IField {
    label: string;
    name: string;
-   readonly: boolean;
-   required: boolean;
+//    readonly: boolean;
+//    required: boolean;
    fieldType: string;
-   valueType: string;
+   // valueType: string;
 }

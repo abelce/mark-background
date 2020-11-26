@@ -10,6 +10,7 @@ import {getUser} from '@domain/user/action.js'
 const Login = React.lazy(() => import('./login'));
 const Home = React.lazy(() => import('./home'));
 const Entity = React.lazy(() => import('./Entity'));
+const TemplateEditor = React.lazy(() => import('./Template/Editor'));
 
 class Routes extends React.Component {
 
@@ -34,7 +35,9 @@ class Routes extends React.Component {
                             <React.Suspense fallback={<Loading />}>
                                 <Switch>
                                     <Route exact={true} path="/entity/form" component={Entity}/>
-                                    <Route exact={true} path="/" component={Entity} />
+                                    <Route exact={true} path="/template/editor" component={TemplateEditor}/>
+                                    <Route exact={true} path="/" component={TemplateEditor} />
+
                                 </Switch>
                             </React.Suspense>
                         </div>

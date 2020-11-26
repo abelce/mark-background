@@ -2,7 +2,7 @@ import axios from 'axios';
 import errors from '@common/errors/index.js';
 import {getToken} from '@utils';
 
-export const baseURL = 'https://api.vwood.xyz/v1';
+export const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3066/v1' : 'https://api.vwood.xyz/v1';
 export const cdnURL = process.env.NODE_ENV === 'development' ? 'http://testing-cdn.vwood.xyz' : 'http://cdn.vwood.xyz';
 
 export function httpBase(url) {
@@ -12,6 +12,7 @@ export function httpBase(url) {
         headers: {
             'content-type': 'application/json',
             'token': getToken(),
+            'Access-Control-Allow-Origin': '*',
         }
     })
 }

@@ -70,27 +70,27 @@ export default class EntityForm extends React.Component<IChildrenProps> {
         <ValueType value={value} onChange={this.handleColumnChange('valueType', index)} />
       ),
     },
-    {
-      title: '必填',
-      dataIndex: 'required',
-      render: (value: boolean, _, index: number) => (
-        <Checkbox checked={value} onChange={this.handleColumnChange('required', index)} />
-      ),
-    },
-    {
-      title: '只读',
-      dataIndex: 'readonly',
-      render: (value: boolean, _, index: number) => (
-        <Checkbox checked={value} onChange={this.handleColumnChange('readonly', index)} />
-      ),
-    },
-    {
-      title: '隐藏',
-      dataIndex: 'hide',
-      render: (value: boolean, _, index: number) => (
-        <Checkbox checked={value} onChange={this.handleColumnChange('hide', index)} />
-      ),
-    },
+    // {
+    //   title: '必填',
+    //   dataIndex: 'required',
+    //   render: (value: boolean, _, index: number) => (
+    //     <Checkbox checked={value} onChange={this.handleColumnChange('required', index)} />
+    //   ),
+    // },
+    // {
+    //   title: '只读',
+    //   dataIndex: 'readonly',
+    //   render: (value: boolean, _, index: number) => (
+    //     <Checkbox checked={value} onChange={this.handleColumnChange('readonly', index)} />
+    //   ),
+    // },
+    // {
+    //   title: '隐藏',
+    //   dataIndex: 'hide',
+    //   render: (value: boolean, _, index: number) => (
+    //     <Checkbox checked={value} onChange={this.handleColumnChange('hide', index)} />
+    //   ),
+    // },
   ];
 
   handleChange = (data: IEntity) => {
@@ -133,9 +133,9 @@ export default class EntityForm extends React.Component<IChildrenProps> {
       title: '',
       name: '',
       fieldType: ENUM_FIELDTYPE_STRING,
-      required: true,
-      readonly: false,
-      hide: false,
+      // required: true,
+      // readonly: false,
+      // hide: false,
       valueType: ENUM_VALUETYPE_SINGLE,
       _id: +new Date(),
     };

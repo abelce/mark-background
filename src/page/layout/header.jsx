@@ -14,6 +14,10 @@ const Navs = [
         label: '元数据',
         value: '/entity/form',  
     },
+    {
+        label: '编辑器',
+        value: '/template/editor'
+    }
 ];
 
 const menu = (

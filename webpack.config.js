@@ -121,6 +121,7 @@ var webpackConfig = {
             "@components": __dirname + "/src/components",
             "@/components": __dirname + "/src/components",
             "@common": __dirname + "/src/common",
+            "@/common": __dirname + "/src/common",
             "@/*": __dirname + "/src/*",
         },
         modules: ['src', 'node_modules'],
