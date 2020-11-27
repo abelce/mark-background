@@ -127,13 +127,13 @@ const BaseForm = (entityName: string) => {
                 }
             }
 
-            createData = () => {
+            createData = async () => {
                 try {
                     // this.loading = ENUM_LOADING_SENDING;
                     this.setState({
                         loading: ENUM_LOADING_SENDING,
                     })
-                    createEntity(this.entityName, this.data);
+                    await createEntity(this.entityName, this.state.data);
                     // this.loading = ENUM_LOADING_SUCCESS;
                     this.setState({
                         loading: ENUM_LOADING_SUCCESS,
@@ -148,13 +148,13 @@ const BaseForm = (entityName: string) => {
                 }
             }
 
-            updateData = () => {
+            updateData = async () => {
                 try {
                     // this.loading = ENUM_LOADING_SENDING;
                     this.setState({
                         loading: ENUM_LOADING_SENDING,
                     })
-                    updateEntity(this.entityName, this.data);
+                    await updateEntity(this.entityName, this.state.data);
                     // this.loading = ENUM_LOADING_SUCCESS;
                     this.setState({
                         loading: ENUM_LOADING_SUCCESS,

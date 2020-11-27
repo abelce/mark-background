@@ -41,7 +41,7 @@ export default class EntityForm extends React.Component<IChildrenProps> {
         <Input
           defaultValue={value}
           size="small"
-          onChange={(e) => this.handleColumnChange('name', index)(e.target.value)}
+          onBlur={(e) => this.handleColumnChange('name', index)(e.target.value)}
         />
       ),
     },
@@ -52,7 +52,7 @@ export default class EntityForm extends React.Component<IChildrenProps> {
         <Input
           defaultValue={value}
           size="small"
-          onChange={(e) => this.handleColumnChange('label', index)(e.target.value)}
+          onBlur={(e) => this.handleColumnChange('label', index)(e.target.value)}
         />
       ),
     },
@@ -63,13 +63,13 @@ export default class EntityForm extends React.Component<IChildrenProps> {
         <FieldType value={value} onChange={this.handleColumnChange('fieldType', index)} />
       ),
     },
-    {
-      title: '值类型',
-      dataIndex: 'valueType',
-      render: (value: string, _, index: number) => (
-        <ValueType value={value} onChange={this.handleColumnChange('valueType', index)} />
-      ),
-    },
+    // {
+    //   title: '值类型',
+    //   dataIndex: 'valueType',
+    //   render: (value: string, _, index: number) => (
+    //     <ValueType value={value} onChange={this.handleColumnChange('valueType', index)} />
+    //   ),
+    // },
     // {
     //   title: '必填',
     //   dataIndex: 'required',
@@ -172,7 +172,7 @@ export default class EntityForm extends React.Component<IChildrenProps> {
           dataSource={this.props.data.fields}
           columns={this.columns}
           onChange={this.handleChange}
-          rowKey="name"
+          rowKey="id"
           size="small"
         />
       </div>

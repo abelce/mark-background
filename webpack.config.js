@@ -15,6 +15,13 @@ var webpackConfig = {
         port: 3010,
         contentBase: __dirname + '/build',
         historyApiFallback: true,
+        proxy: {
+            '/v1': {
+                target: 'https://api.vwood.xyz',
+                secure: false,
+                changeOrigin: true,
+            }
+          }
     },
     entry: {
         app: `${__dirname}/src/page/App.js`,
