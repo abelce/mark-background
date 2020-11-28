@@ -13,3 +13,22 @@
         width: 40px;
     }
 }
+
+.table {
+    width: 100%;
+    &_header {
+        min-height: 32px;
+        background-color: rgba(0,0,0,.02);
+    }
+    &_content {
+
+    }
+    &_tr {
+        display: table-row;
+        display: flex;
+    }
+    &_td {
+        padding: 4px 8px;
+        display: table-cell;
+    }
+}

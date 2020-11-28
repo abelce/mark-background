@@ -16,14 +16,14 @@ export async function createEntity(entityName:string, data: any) {
 export async function updateEntity(entityName:string, data: any) {
   return http({
     method: 'PUT',
-    url: `/${getEntityNameLowerCase(entityName)}/${data.id}`,
+    url: `/${getEntityNameLowerCase(entityName)}`,
     data,
   });
 }
 
 export async function deleteEntity(entityName:string, id: string) {
   return http( {
-    method: 'PUT',
+    method: 'DELETE',
     url: `/${getEntityNameLowerCase(entityName)}`,
     data: {
       id,
@@ -35,5 +35,14 @@ export async function getEntityByID(entityName:string, id: string) {
   return http({
     method: 'get',
     url: `/${getEntityNameLowerCase(entityName)}/${id}`,
+  });
+}
+
+// 查询列表
+export async function getEntityList(entityName:string, params: object) {
+  return http({
+    method: 'get',
+    url: `/${getEntityNameLowerCase(entityName)}`,
+    params,
   });
 }

@@ -12,11 +12,11 @@ const Navs = [
     },
     {
         label: '元数据',
-        value: '/entity/form',  
+        value: '/Entity/list',
     },
     {
-        label: '编辑器',
-        value: '/template/editor'
+        label: '模版',
+        value: '/template/list'
     }
 ];
 

@@ -1,0 +1,21 @@
+.list {
+    margin: 16px;
+    flex: 1;
+    .header {
+        padding: 8px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .content {
+        
+    }
+}
+.newTemplateModel  {
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+        & > button {
+            margin: 0 8px;
+        }
+    }
+}

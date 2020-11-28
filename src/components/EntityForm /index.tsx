@@ -9,14 +9,11 @@ import {
 import { createEntity, getEntityByID, updateEntity } from "@/services";
 import { parseQuery } from "@/utils";
 import { Button, message, Spin } from "antd";
-import { autobind } from "core-decorators";
-import { observable, computed, action } from "mobx";
 import * as React from "react";
-import { observer, Observer } from "mobx-react";
+import { Observer } from "mobx-react";
 import * as Style from "./style.scss";
-import { relativeTimeThreshold } from "moment";
 import { withRouter } from "react-router-dom";
-import { Entity, EntityList } from "@domain/entity";
+import LoadingContainer from "@components/LoadingContainer";
 
 interface IBaseFormProps {}
 interface IBaseFormState {
@@ -31,7 +28,7 @@ export interface IChildrenProps {
   onChange: (data: any) => void;
 }
 
-const BaseForm = (entityName: string) => {
+const BaseEntityForm  = (entityName: string) => {
   return (ChildrenComponent: React.ComponentClass | React.FC) => {
     return withRouter(
       class extends React.Component<IBaseFormProps, IBaseFormState> {
@@ -84,7 +81,7 @@ const BaseForm = (entityName: string) => {
               this.id = obj.id;
               break;
             case ENUM_MODE_CREATE:
-              this.state.data = new Entity();
+              this.state.data = {};
               break;
             case ENUM_MODE_EDIT:
               this.id = obj.id;
@@ -106,7 +103,7 @@ const BaseForm = (entityName: string) => {
         handleChange = (data: any) => {
           // this.data = [...data];
           this.setState({
-            data: new Entity(data),
+            data,
           });
         };
 
@@ -195,7 +192,7 @@ const BaseForm = (entityName: string) => {
             });
             const result = await getEntityByID(this.entityName, this.id);
             this.setState({
-              data: new Entity(result),
+              data: result,
               loading: ENUM_LOADING_SUCCESS,
             });
           } catch (e) {
@@ -224,20 +221,18 @@ const BaseForm = (entityName: string) => {
             <Observer
               render={() => (
                 <div className={Style.baseForm}>
-                  <Spin
+                  <LoadingContainer
                     spinning={this.state.loading === ENUM_LOADING_SENDING}
                     tip="Loading..."
                   >
-                    <div>
                       {this.state.data ? (
                         <ChildrenComponent
                           {...this.childrenProps}
                           ref={this._ref}
                         />
                       ) : null}
-                    </div>
                     {this.renderFooter()}
-                  </Spin>
+                  </LoadingContainer>
                 </div>
               )}
             ></Observer>
@@ -263,4 +258,4 @@ function Footer(props: IFooter) {
   );
 }
 
-export default BaseForm;
+export default BaseEntityForm;

@@ -161,3 +161,10 @@ export const parseQuery = () => {
   export const getQueryValue = (key: string): any => {
     return parseQuery()[key];
   }
+
+
+  // 获取mode
+  export const getMode = () => {
+    const tmp = getUrlQueryObj();
+    return tmp['mode'];
+  }

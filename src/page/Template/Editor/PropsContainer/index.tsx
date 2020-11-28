@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ENUM_PROPTYPE_STYLE } from '@/domain/enums';
-
+import * as Style from './style.scss';
 export interface ICompProp {
     type: string;
     width: number;
@@ -18,5 +18,7 @@ interface IPropsContainer {
 }
 
 export default function PropsContainer(props: IPropsContainer) {
+    return <div className={Style.props}>
 
+    </div>
 }
