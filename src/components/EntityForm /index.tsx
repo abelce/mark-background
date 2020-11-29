@@ -14,6 +14,7 @@ import { Observer } from "mobx-react";
 import * as Style from "./style.scss";
 import { withRouter } from "react-router-dom";
 import LoadingContainer from "@components/LoadingContainer";
+import { Template } from "@domain/template";
 
 interface IBaseFormProps {}
 interface IBaseFormState {
@@ -38,12 +39,12 @@ const BaseEntityForm  = (entityName: string) => {
           data: null,
           loading: ENUM_LOADING_SUCCESS,
         };
-        // @observable
+        @observable
         protected mode: string = "";
 
         protected id: string = "";
 
-        // @observable
+        @observable
         protected entityName: string = "";
 
         // @observable
@@ -52,7 +53,7 @@ const BaseEntityForm  = (entityName: string) => {
         // @observable
         // protected loading: boolean;
 
-        // @computed
+        @computed
         get childrenProps() {
           const res = {
             ...this.props,
@@ -101,7 +102,6 @@ const BaseEntityForm  = (entityName: string) => {
 
         @action
         handleChange = (data: any) => {
-          // this.data = [...data];
           this.setState({
             data,
           });
@@ -192,7 +192,7 @@ const BaseEntityForm  = (entityName: string) => {
             });
             const result = await getEntityByID(this.entityName, this.id);
             this.setState({
-              data: result,
+              data: new Template(result),
               loading: ENUM_LOADING_SUCCESS,
             });
           } catch (e) {

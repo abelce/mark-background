@@ -3,7 +3,7 @@ import { getEntityByID } from "@services";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import { template, values } from "lodash";
 import * as React from "react";
-import * as Style from './style.scss';
+import * as Style from "./style.scss";
 
 const { useEffect, useState, useCallback, useMemo } = React;
 
@@ -11,9 +11,8 @@ interface IFieldSelect {
   entityName: string;
   entityID: string;
   value: Array<IField>;
-//   onChange: (value: Array<IField>) => void;
-  onInsert: (field: IField)=>void;
-  onRemove: (name: string)=>void;
+  onInsert: (field: IField) => void;
+  onRemove: (name: string) => void;
 }
 
 export default function FieldSelect(props: IFieldSelect) {
@@ -30,13 +29,13 @@ export default function FieldSelect(props: IFieldSelect) {
     }
   }, []);
 
-  const handleSelect = useCallback((field: IField) => {
+  const handleSelect = (field: IField) => {
     if (!checkList[field.name]) {
       props.onInsert(field);
     } else {
       props.onRemove(field.name);
     }
-  }, []);
+  };
 
   useMemo(() => {
     const result = {};
@@ -48,7 +47,7 @@ export default function FieldSelect(props: IFieldSelect) {
       });
     }
     setCheckList(result);
-  }, [props.value, entity]);
+  }, [props.value.length, entity]);
 
   if (!entity) {
     return null;
@@ -57,8 +56,12 @@ export default function FieldSelect(props: IFieldSelect) {
   return (
     <div className={Style.fieldSelect}>
       <div className={Style.header}>
-        <div className={Style.header_name}>{entity.name}</div>
-        <div className={Style.header_label}>{entity.label}</div>
+        <div className={Style.header_name}>
+          <strong>业务对象: {entity.name}</strong>
+        </div>
+        <div className={Style.header_label}>
+          <strong>业务对象名称: {entity.label}</strong>
+        </div>
       </div>
       <div className={Style.fields}>
         {entity.fields.map((field) => (
@@ -83,11 +86,13 @@ interface IItem {
 function Item(props: IItem) {
   return (
     <div className={Style.field}>
-      <Checkbox
-        checked={props.checked}
-        onChange={() => props.onSelect(props.field)}
-      />
-      <span className={Style.field_name}>{props.field.label}</span>
+      <span
+        className={Style.field_content}
+        onClick={() => props.onSelect(props.field)}
+      >
+        <Checkbox checked={props.checked} />
+        <span className={Style.field_name}>{props.field.label}</span>
+      </span>
     </div>
   );
 }

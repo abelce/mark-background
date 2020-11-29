@@ -26,7 +26,6 @@ class Login extends React.Component {
   };
 
   handleSubmit = (values) => {
-      debugger;
     this.setState({
       loading: true,
     });

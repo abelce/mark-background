@@ -1,16 +1,24 @@
+$borderColor: #bfbfbf;
+
 .editor {
     padding: 4px;
     flex: 1;
     display: flex;
     flex-direction: row;
+    border-top: 1px solid $borderColor;
+    border-bottom: 1px solid $borderColor;
     &_fields {
         display: flex;
         width: 200px;
+        border-right: 1px solid $borderColor;
     }
     &_content {
         flex: 1;
+        padding: 8px;
     }
     &_props {
         display: flex;
+        border-left: 1px solid $borderColor;
+        width: 260px;
     }
 }

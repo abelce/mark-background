@@ -60,7 +60,6 @@ export default class EntityList extends React.Component {
     reaction(
       () => this.list.length,
       (value) => {
-        debugger;
       }
     );
     this.queryList();

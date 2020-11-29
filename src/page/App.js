@@ -1,4 +1,4 @@
-import '@common/errors/index'
+// import '@common/errors/index'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';

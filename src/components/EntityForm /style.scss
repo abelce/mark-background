@@ -1,6 +1,8 @@
 .baseForm {
     background-color: #ffffff;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 .footerContainer {
     padding: 8px;

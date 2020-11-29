@@ -1,3 +1,22 @@
 .main {
     padding: 2px;
 }
+.form {
+    display: flex;
+}
+
+$activeBg: rgb(186, 231, 255);
+.field {
+    border-radius: 2px;
+    padding: 4px;
+    border: 1px solid transparent;
+    margin: 4px;
+    &:hover {
+        background-color: $activeBg;
+        border: 1px solid #1890FF;
+    }
+}
+
+.active {
+    background-color: $activeBg;
+}
