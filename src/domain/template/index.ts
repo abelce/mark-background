@@ -23,7 +23,7 @@ export class Template implements ITemplate {
     this.label = label;
     this.referEntityID = referEntityID;
     this.referEntityName = referEntityName;
-    this.items = items || [];
+    this.items = items.map((item) => new TemplateItem(item)) || [];
     this.createdTime = createdTime;
     this.udpateTime = udpateTime;
   }
@@ -54,28 +54,66 @@ export class TemplateItem implements ITemplateItem {
     this.readonly = readonly;
     this.required = required;
     this.width = width;
-    this.extendProps = extendProps || getDefaultExtendProps();
+    this.extendProps = extendProps || getDefaultExtendProps(this.compType);
+  }
+
+  // 重置extendProps
+  resetExtendProps() {
+    this.extendProps = getDefaultExtendProps(this.compType);
   }
 }
 
-function getDefaultExtendProps() {
-  const defaultProps: Array<IExtend> = [
+const extendPropsFuncMap = {
+  button: getButtonExtenProps,
+};
+
+// 切换组件时重新设置所有的属性
+function getDefaultExtendProps(compType: string) {
+  let defaultProps: Array<IExtend> = [
     {
       type: "style",
       key: "width",
-      value: 200,
+      value: 100, // 默认100%
     },
     {
-        type: "attr",
-        key: "required",
-        value: false,
-      },
-      {
-        type: "attr",
-        key: "disabled",
-        value: false,
-      },
+      type: "col",
+      key: "col",
+      value: 6, // 栅格值默认为6
+    },
+    {
+      type: "attr",
+      key: "required",
+      value: false,
+    },
+    {
+      type: "comp-attr",
+      key: "readonly",
+      value: false,
+    },
   ];
 
-  return defaultProps;
+  const spicalExtendProps = extendPropsFuncMap[compType]
+    ? extendPropsFuncMap[compType]()
+    : [];
+  defaultProps = defaultProps.concat(spicalExtendProps);
+
+  return defaultProps.concat();
+}
+
+export function getButtonExtenProps() {
+  // button组件需要按钮text
+  const extendProps: Array<IExtend> = [
+    {
+      type: "text",
+      key: "text",
+      value: "按钮",
+    },
+    {
+      type: "comp-attr", // 组件自身的属性，作用在组件本身，eg: <Input type="primary"/>
+      key: "type",
+      value: "primary",
+    },
+  ];
+
+  return extendProps;
 }

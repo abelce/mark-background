@@ -2,11 +2,12 @@ import BaseEntityForm from "@components/EntityForm ";
 import FieldSelect from "@components/FieldSelect";
 import { IField } from "@domain/interface";
 import { ITemplateItem } from "@domain/interface/template";
-import { TemplateItem } from "@domain/template";
+import { Template, TemplateItem } from "@domain/template";
 import * as React from "react";
 import ComponentSet, { getDefaultCompByField } from "./ComponentSet";
 import Main from "./Main";
 import PropsContainer from "./PropsContainer";
+import PropsTabs from "./PropsTab";
 import * as Style from "./style.scss";
 
 @BaseEntityForm("Template")
@@ -58,12 +59,25 @@ export default class Editor extends React.Component {
     onChange && onChange({...data});
   }
 
+  // 点击右侧组件栏目时，切换字段的组件
+  handleComponentSetClick = (compType: string) => {
+    const {crrrencuComp} = this.state;
+    const {data, onChange} = this.props;
+    const index = data.items.findIndex(item => item.name === crrrencuComp.name);
+    if (index !== -1) {
+      const item = data.items[index];
+      item['compType'] = compType;
+      item.resetExtendProps();
+      console.log(item);
+    }
+    onChange && onChange(new Template(data));
+  }
+
   render() {
     const { referEntityID } = this.props.data;
     return (
       <div className={Style.editor}>
         <div className={Style.editor_fields}>
-          {/* <ComponentSet onClick={handleComponentSetClick}/> */}
           <FieldSelect
             entityName="entity"
             entityID={referEntityID}
@@ -76,7 +90,11 @@ export default class Editor extends React.Component {
           <Main items={this.props.data.items || []} current={this.state.crrrencuComp} onSelect={this.handleCompSelect}/>
         </div>
         <div className={Style.editor_props}>
-          <PropsContainer item={this.state.crrrencuComp as ITemplateItem} onChange={this.handleChangeTemplateItemProps}/>
+          {/* <PropsContainer item={this.state.crrrencuComp as ITemplateItem} onChange={this.handleChangeTemplateItemProps}/> */}
+          <PropsTabs 
+          item={this.state.crrrencuComp as unknown as ITemplateItem} 
+          onSelectComp={this.handleComponentSetClick}
+          onChange={this.handleChangeTemplateItemProps}/>
         </div>
       </div>
     );

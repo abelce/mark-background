@@ -83,14 +83,14 @@ const options = [
     label: "bool",
     value: ENUM_FIELDTYPE_BOOL,
   },
-  {
-    label: "日期",
-    value: ENUM_FIELDTYPE_DATE,
-  },
-  {
-    label: "时间",
-    value: ENUM_FIELDTYPE_DATETIME,
-  },
+  // {
+  //   label: "日期",
+  //   value: ENUM_FIELDTYPE_DATE,
+  // },
+  // {
+  //   label: "时间",
+  //   value: ENUM_FIELDTYPE_DATETIME,
+  // },
   {
     label: "外键",
     value: ENUM_FIELDTYPE_OBJECT,

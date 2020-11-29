@@ -15,9 +15,11 @@ import {
   ENUM_FIELDTYPE_BOOL,
 } from "@domain/enums";
 import { IField } from "@domain/interface";
+import { ITemplateItem } from "@domain/interface/template";
 import * as React from "react";
 import { useCallback } from "react";
 import * as Style from "./style.scss";
+import cn from 'classnames';
 
 interface IItem {
   label: string;
@@ -26,6 +28,10 @@ interface IItem {
 }
 
 const components: Array<IItem> = [
+  {
+    label: "按钮",
+    name: "button",
+  },
   {
     label: "单行文本框",
     name: "input",
@@ -70,9 +76,14 @@ const components: Array<IItem> = [
     label: "时间区间",
     name: "datetimeRange",
   },
+  {
+    label: "评分",
+    name: "rate",
+  },
 ];
 
 interface IOption {
+  isActive: boolean;
   item: IItem;
   onClick: (item: IItem) => void;
 }
@@ -82,22 +93,28 @@ function Option(props: IOption) {
   }, []);
   return (
     <div className={Style.item} onClick={handleClick}>
-      <div className={Style.content}>{props.item.label}</div>
+      <div className={cn(Style.content, {[Style.isActive]: props.isActive})}>{props.item.label}</div>
     </div>
   );
 }
 
 interface ComponentSet {
-  onClick: (comp: React.Component | React.FC) => void;
+  item: ITemplateItem;
+  onSelectComp: (comp: React.Component | React.FC) => void;
 }
 export default function ComponentSet(props: ComponentSet) {
   const handleChange = useCallback((data: IItem) => {
-    props.onClick(data.comp);
+    props.onSelectComp(data.name);
   }, []);
+
+  if (!props.item) {
+    return null;
+  }
+
   return (
-    <div className={Style.container}>
+    <div key={props.item.name} className={Style.container}>
       {components.map((option) => (
-        <Option key={option.name} item={option} onClick={handleChange} />
+        <Option key={option.name} item={option} onClick={handleChange} isActive={option.name === props.item.compType}/>
       ))}
     </div>
   );

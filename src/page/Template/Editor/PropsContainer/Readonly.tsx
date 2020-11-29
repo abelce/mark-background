@@ -14,7 +14,7 @@ import * as React from 'react';
 
 
 export default function Readonly() {
-    return <Form.Item label="只读" name="disabled">
+    return <Form.Item label="只读" name="readonly" valuePropName="checked">
     <Switch size="small"/>
 </Form.Item>
 }

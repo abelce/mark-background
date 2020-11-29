@@ -1,9 +1,6 @@
+@import '../../../../common/assets/style/var.scss';
 .container {
     flex: 1;
-    // display: flex;
-    // flex-wrap: wrap;
-    width: 200px;
-    border-right: 1px solid black;
     font-size: 12px;
     .item {
         width: 50%;
@@ -24,6 +21,9 @@
                 color: #40a9ff;
                 border: 1px solid #40a9ff;
             }
+        }
+        .isActive {
+            background-color: $activeBg;
         }
     }
 }
