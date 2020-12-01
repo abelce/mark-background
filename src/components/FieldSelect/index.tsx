@@ -47,7 +47,7 @@ export default function FieldSelect(props: IFieldSelect) {
       });
     }
     setCheckList(result);
-  }, [props.value.length, entity]);
+  }, [(props.value || []).length, entity]);
 
   if (!entity) {
     return null;
