@@ -7,7 +7,7 @@ export class Entity{
     fields: Array<EntityField> = [];
 
     constructor(data: any) {
-        const {id, name, label, fields} = data || {};
+        const {id, name, label, fields = []} = data || {};
         this.id = id;
         this.name = name;
         this.label = label;
