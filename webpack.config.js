@@ -130,8 +130,10 @@ var webpackConfig = {
             "@common": __dirname + "/src/common",
             "@/common": __dirname + "/src/common",
             "@/*": __dirname + "/src/*",
+            "@gen": __dirname + "/packages/gen",
+            "@gen/*": __dirname + "/packages/gen/*",
         },
-        modules: ['src', 'node_modules'],
+        modules: ['src', 'node_modules', 'packages'],
         extensions: ['.js', '.jsx', '.scss', '.css', '.tsx', '.ts'],
     },
     optimization: {

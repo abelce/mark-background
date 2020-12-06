@@ -1,0 +1,14 @@
+.baseForm {
+    background-color: #ffffff;
+    flex: 1;
+}
+.footerContainer {
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+.footer {
+    > button {
+        margin-left: 8px;
+    }
+}

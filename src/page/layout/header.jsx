@@ -11,12 +11,20 @@ const Navs = [
         value: '/',
     },
     {
-        label: '元数据',
+        label: '实体',
         value: '/Entity/list',
     },
     {
         label: '模版',
-        value: '/template/list'
+        value: '/Template/list'
+    },
+    {
+        label: '常量',
+        value: '/Constant/list'
+    },
+    {
+        label: '枚举',
+        value: '/Enum/list'
     }
 ];
 

@@ -13,6 +13,12 @@ const Entity = React.lazy(() => import("./Entity"));
 const TemplateEditor = React.lazy(() => import("./Template/Editor"));
 const EntityList = React.lazy(() => import("./Entity/list/index"));
 const TemplateList = React.lazy(() => import("./Template/list/index"));
+const ConstractForm = React.lazy(() => import("./Constant/form/index"));
+const ConstantList = React.lazy(() => import("./Constant/list/index"));
+
+const EnumForm = React.lazy(() => import("./Enum/form/index"));
+const EnumList = React.lazy(() => import("./Enum/list/index"));
+
 import Modals from "@/components/modals";
 
 class Routes extends React.Component {
@@ -37,6 +43,16 @@ class Routes extends React.Component {
               <div className={Style.layout_content}>
                 <React.Suspense fallback={<Loading />}>
                   <Switch>
+                  <Route
+                      exact={true}
+                      path="/Constant/form"
+                      component={ConstractForm}
+                    />
+                    <Route
+                      exact={true}
+                      path="/Constant/list"
+                      component={ConstantList}
+                    />
                     <Route
                       exact={true}
                       path="/Entity/list"
@@ -56,6 +72,16 @@ class Routes extends React.Component {
                       exact={true}
                       path="/Template/editor"
                       component={TemplateEditor}
+                    />
+                                        <Route
+                      exact={true}
+                      path="/Enum/form"
+                      component={EnumForm}
+                    />
+                    <Route
+                      exact={true}
+                      path="/Enum/list"
+                      component={EnumList}
                     />
                     <Route exact={true} path="/" component={TemplateEditor} />
                   </Switch>

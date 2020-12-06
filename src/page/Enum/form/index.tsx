@@ -10,27 +10,19 @@
  * Copyright 2017 - 2020 Your Company, Your Company
  */
 import * as React from "react";
-import { Button, Input, Radio } from "antd";
-import { SortableTable } from "@/components/SortTable";
+import { Button, Input, Select } from "antd";
 import { autobind } from "core-decorators";
-import { observer } from "mobx-react";
 import Form from "antd/lib/form/Form";
 import FormItem from "antd/lib/form/FormItem";
 import {
   ENUM_MODE_CREATE,
   ENUM_MODE_EDIT,
-  ENUM_MODE_VIEW,
-  ENUM_VALUETYPE_SINGLE,
 } from "@/domain/enums";
 import * as Style from "./style.scss";
-import {
-  ENUM_FIELDTYPE_STRING,
-} from "@/domain/enums/fieldType";
-import FieldType from "./FeildType";
 import { IEntity } from "@/domain/interface";
 import { v4 as uuidv4 } from "uuid";
-import EasyRemoteSelect from "@components/EasySelect";
-import BaseForm from "@components/Form";
+import BaseForm from "@components/FormConstant";
+import { IConstantItem } from "@gen/entity-interfaces/ConstantItem";
 
 interface IColumn {
   title: string;
@@ -45,9 +37,9 @@ interface IColumn {
 
 @autobind
 // @observer
-@BaseForm("Entity")
+@BaseForm("Enum")
 // @FormMode
-export default class EntityForm extends React.Component<IChildrenProps> {
+export default class ConstractForm extends React.Component<IChildrenProps> {
   tableRef = React.createRef();
 
   formRef = React.createRef();
@@ -58,87 +50,53 @@ export default class EntityForm extends React.Component<IChildrenProps> {
 
   columns: Array<IColumn> = [
     {
-      title: "字段名",
-      dataIndex: "name",
+      title: "键",
+      dataIndex: "key",
       render: (value: string, _, index: number) => (
         <Input
-          defaultValue={value}
+          value={value}
           size="small"
           style={{ width: "200px" }}
-          onBlur={(e) => this.handleColumnChange("name", index)(e.target.value)}
+          onChange={(e) => this.handleKeyChange(e.target.value, index)}
         />
       ),
     },
     {
-      title: "标题",
-      dataIndex: "label",
+      title: "值",
+      dataIndex: "value",
+      render: (value: string, record, index: number) => (
+        <Input
+          value={value}
+          size="small"
+          style={{ width: "300px" }}
+          onChange={(e) => this.handleColumnChange("value", index)(e.target.value)}
+          // disabled={this.getRuleDisabled()}
+        />
+      ),
+    },
+    {
+      title: "描述",
+      dataIndex: "description",
       render: (value: string, _, index: number) => (
         <Input
-          defaultValue={value}
+          value={value}
           size="small"
           style={{ width: "200px" }}
-          onBlur={(e) =>
-            this.handleColumnChange("label", index)(e.target.value)
+          onChange={(e) =>
+            this.handleColumnChange("description", index)(e.target.value)
           }
         />
-      ),
-    },
-    {
-      title: "类型",
-      dataIndex: "fieldType",
-      render: (value: string, record, index: number) => (
-        <span style={{ display: "flex" }}>
-          <FieldType
-            value={value}
-            onChange={(value) => this.handleFieldTypeChange(value, index)}
-          />
-          {record.isExtend && (
-            <EasyRemoteSelect
-              entityName={this.props.entityName}
-              value={record.referEntityID}
-              onChange={(data) => this.handleReferChange(data, index)}
-            />
-          )}
-        </span>
       ),
     },
     {
       title: "删除",
       dataIndex: "action",
       render: (value: string, record, index: number) => (
-        <Button size="small" onClick={() => this.handleRemove(record)}>
+        <Button size="small" onClick={() => this.handleRemove(record, index)}>
           删除
         </Button>
       ),
     },
-    // {
-    //   title: '值类型',
-    //   dataIndex: 'valueType',
-    //   render: (value: string, _, index: number) => (
-    //     <ValueType value={value} onChange={this.handleColumnChange('valueType', index)} />
-    //   ),
-    // },
-    // {
-    //   title: '必填',
-    //   dataIndex: 'required',
-    //   render: (value: boolean, _, index: number) => (
-    //     <Checkbox checked={value} onChange={this.handleColumnChange('required', index)} />
-    //   ),
-    // },
-    // {
-    //   title: '只读',
-    //   dataIndex: 'readonly',
-    //   render: (value: boolean, _, index: number) => (
-    //     <Checkbox checked={value} onChange={this.handleColumnChange('readonly', index)} />
-    //   ),
-    // },
-    // {
-    //   title: '隐藏',
-    //   dataIndex: 'hide',
-    //   render: (value: boolean, _, index: number) => (
-    //     <Checkbox checked={value} onChange={this.handleColumnChange('hide', index)} />
-    //   ),
-    // },
   ];
 
   componentDidMount() {
@@ -148,9 +106,13 @@ export default class EntityForm extends React.Component<IChildrenProps> {
   }
 
   // 删除属性
-  handleRemove = (entity: IEntity) => {
+  handleRemove = (constantIem: IConstantItem, index: number) => {
     const { data } = this.props;
-    data.fields = data.fields.filter((field) => field.id !== entity.id);
+    if (constantIem.value) {
+      data.items = data.items.filter((item: IConstantItem) => item.value !== constantIem.value);
+    } else {
+      data.items = [...data.items.slice(0, index), ...data.items.slice(index + 1)];
+    }
     this.handleChange(data);
   };
 
@@ -169,45 +131,73 @@ export default class EntityForm extends React.Component<IChildrenProps> {
 
   baseInfoRender = () => {
     const {
-      data: { label = "", name = "" },
+      data: { label = "", name = "", rule="" },
     } = this.props;
     const { mode } = this.props;
     return (
       <Form
         layout="inline"
         onValuesChange={this.handleBaseInfoChange}
-        initialValues={{ label, name }}
+        initialValues={{ label, name, rule }}
         ref={this.formRef}
       >
-        <FormItem label="对象名称(英文)" name="name" required>
+        <FormItem label="枚举名称(英文)" name="name" required>
           <Input disabled={mode !== ENUM_MODE_CREATE}/>
         </FormItem>
-        <FormItem label="字段名" name="label" required>
+        <FormItem label="描述" name="label" required>
           <Input
             disabled={mode !== ENUM_MODE_CREATE && mode !== ENUM_MODE_EDIT}
           />
         </FormItem>
+        {/* <FormItem label="规则" name="rule" required>
+          <Select 
+            disabled={mode !== ENUM_MODE_CREATE && mode !== ENUM_MODE_EDIT}
+            style={{width: "200px"}}>
+            <Select.Option value="key=value">键值相同</Select.Option>
+            <Select.Option value="uuid">uuid</Select.Option>
+            <Select.Option value="timestamp">时间戳</Select.Option>
+            <Select.Option value="customer">自定义</Select.Option>
+          </Select>
+        </FormItem> */}
       </Form>
     );
   };
 
+  getRuleDisabled=() => {
+    const {data} = this.props;
+    switch(data.rule) {
+      case "key=value": 
+        return true;
+      case "uuid":
+        return true;
+      case "timestamp":
+        return true;
+      default:
+        return false;
+    }
+  }
+
   handleNewItem = () => {
     const item = {
-      title: "",
-      name: "",
-      fieldType: ENUM_FIELDTYPE_STRING,
-      // required: true,
-      // readonly: false,
-      // hide: false,
-      valueType: ENUM_VALUETYPE_SINGLE,
-      id: uuidv4(),
-      // 外键的id
-      referEntityID: "",
-      // 外键name
-      referEntityName: "",
+      key: "",
+      value: "",
+      type: "",
     };
     const data = this.props.data;
-    data.fields = [...(data.fields || []), item];
+    
+    if (data.rule === 'uuid') {
+      item["value"] = uuidv4();
+    }
+    switch(data.rule) {
+      case 'uuid':
+        item["value"] = uuidv4();
+        break;
+      case 'timestamp':
+        item["value"] = (+ new Date()).toString();
+        break;
+    }
+
+    data.items = [...(data.items || []), item];
     this.handleChange({ ...data });
   };
 
@@ -217,20 +207,17 @@ export default class EntityForm extends React.Component<IChildrenProps> {
       if (typeof value === "string") {
         value = value.trim();
       }
-      data.fields[index][key] = value;
+      data.items[index][key] = value;
       this.handleChange({ ...data });
     };
   };
 
-  // 当FieldType改变时
-  handleFieldTypeChange = (value: string, index: number) => {
+  // 当key改变时
+  handleKeyChange = (value: string, index: number) => {
     const { data } = this.props;
-    // 不是数组或对象时要清空refer的数据
-    const oldValue = data.fields[index]['fieldType'];
-    data.fields[index]['fieldType'] = value;
-    if (oldValue !== value) {
-      data.fields[index]["referEntityID"] = "";
-      data.fields[index]["referEntityName"] = "";
+    data.items[index]['key'] = value;
+    if (data.rule === 'key=value') {
+      data.items[index]["value"] = value;
     }
     this.handleChange({ ...data });
   };
@@ -238,8 +225,8 @@ export default class EntityForm extends React.Component<IChildrenProps> {
   handleReferChange = (value: IEntity, index: number) => {
     const { id, name } = value;
     const { data } = this.props;
-    data.fields[index]["referEntityID"] = id;
-    data.fields[index]["referEntityName"] = name;
+    data.items[index]["referEntityID"] = id;
+    data.items[index]["referEntityName"] = name;
     this.handleChange({ ...data });
   };
 
@@ -314,6 +301,9 @@ export default class EntityForm extends React.Component<IChildrenProps> {
   };
 
   private createBtn = () => {
+    // if (!this.props.data.rule) {
+    //   return null;
+    // }
     if ([ENUM_MODE_CREATE, ENUM_MODE_EDIT].includes(this.props.mode)) {
       return (
         <Button type="primary" onClick={this.handleNewItem}>
@@ -334,7 +324,7 @@ export default class EntityForm extends React.Component<IChildrenProps> {
         <div className={Style.table} ref={this.tableRef}>
           <div className={Style.table_header}>{this.getHeader()}</div>
           <div className={Style.table_content}>
-            {this.renderList(this.props.data.fields || [])}
+            {this.renderList(this.props.data.items || [])}
           </div>
         </div>
       </div>
