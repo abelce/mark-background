@@ -8,3 +8,5 @@ export const F_User_sex = 'sex'
 export const F_User_age = 'age'
 //创建时间
 export const F_User_createdTime = 'createdTime'
+//客户
+export const F_User_客户 = '客户'

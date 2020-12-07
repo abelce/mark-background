@@ -2,6 +2,9 @@ import http from '@/common/utils/http';
 
 
 function getEntityNameLowerCase(entityName: string) {
+  if (!entityName) {
+    return '';
+  }
   return entityName[0].toLowerCase() + entityName.slice(1);
 }
 

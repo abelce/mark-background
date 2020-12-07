@@ -1,4 +1,3 @@
-import { IEnumItem } from './EnumItem'
 export interface IEnum {
   //id
   id?: string;
@@ -7,7 +6,7 @@ export interface IEnum {
   //undefined
   label?: string;
   //明细
-  items?: Array<IEnumItem>;
+  items?: string;
   //规则
   rule?: string;
 }

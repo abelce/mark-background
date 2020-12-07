@@ -1,3 +1,4 @@
+import { ITemplateItem } from './TemplateItem'
 export interface IUser {
   //id
   id?: string;
@@ -8,5 +9,7 @@ export interface IUser {
   //年龄
   age?: boolean;
   //创建时间
-  createdTime?: date;
+  createdTime?: number;
+  //客户
+  客户?: ITemplateItem;
 }

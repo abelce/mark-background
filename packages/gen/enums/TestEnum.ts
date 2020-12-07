@@ -1,5 +1,5 @@
 // 描述
-export declare enum TestEnum {
-  // 
-  A = 'AAAAA',
-}
+export const ENUM_TestEnum = 'TestEnum'
+// 
+export const ENUM_TestEnum_A = 'AAAAA'
+

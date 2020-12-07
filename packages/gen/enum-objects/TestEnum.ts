@@ -1,5 +1,5 @@
 // 描述
-export const TestEnum = {
+export const ENUM_object_TestEnum = {
   // 
   A: {
     key: 'A',

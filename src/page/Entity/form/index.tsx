@@ -27,10 +27,11 @@ import {
   ENUM_FIELDTYPE_STRING,
 } from "@/domain/enums/fieldType";
 import FieldType from "./FeildType";
-import { IEntity } from "@/domain/interface";
+import { IEntity, IField } from "@/domain/interface";
 import { v4 as uuidv4 } from "uuid";
 import EasyRemoteSelect from "@components/EasySelect";
 import BaseForm from "@components/Form";
+import { FieldTypeSelectModal } from "@components/FieldTypeSelectModal";
 
 interface IColumn {
   title: string;
@@ -86,19 +87,20 @@ export default class EntityForm extends React.Component<IChildrenProps> {
     {
       title: "类型",
       dataIndex: "fieldType",
-      render: (value: string, record, index: number) => (
+      render: (value: string, record = {}, index: number) => (
         <span style={{ display: "flex" }}>
-          <FieldType
+          {/* <FieldType
             value={value}
             onChange={(value) => this.handleFieldTypeChange(value, index)}
           />
           {record.isExtend && (
             <EasyRemoteSelect
-              entityName={this.props.entityName}
+              entityName={() => this.getEasyRemoteSelectEntityName(record)
               value={record.referEntityID}
               onChange={(data) => this.handleReferChange(data, index)}
             />
-          )}
+          )} */}
+          <FieldTypeSelectModal {...record} onChange={(data) => this.handleReferChange(data, index)}/>
         </span>
       ),
     },
@@ -145,6 +147,17 @@ export default class EntityForm extends React.Component<IChildrenProps> {
     // 组件渲染完成后要计算一次table的宽度
     this.setColumnWidth();
     this.forceUpdate();
+  }
+
+  // 获取EasyRemoteSelect组件的entitName
+  getEasyRemoteSelectEntityName = (data: any) => {
+    if (data.fieldType === 'object') {
+      return 'entity';
+    }
+    if (data.fieldType === 'enum') {
+      return 'enum';
+    }
+    return '';
   }
 
   // 删除属性
@@ -236,6 +249,7 @@ export default class EntityForm extends React.Component<IChildrenProps> {
   };
 
   handleReferChange = (value: IEntity, index: number) => {
+    debugger;
     const { id, name } = value;
     const { data } = this.props;
     data.fields[index]["referEntityID"] = id;

@@ -19,6 +19,7 @@
     "strict": true,
     "paths": {
       "@*": ["./src/*"],
+      "@gen": ["./packages/gen"],
       "@gen/*": ["./packages/gen/*"],
       "@/*": ["./src/*"],
       "@@/*": ["./src/.umi/*"]

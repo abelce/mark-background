@@ -23,7 +23,7 @@ export class Template implements ITemplate {
     this.label = label;
     this.referEntityID = referEntityID;
     this.referEntityName = referEntityName;
-    this.items = items.map((item) => new TemplateItem(item)) || [];
+    this.items = (items || []).map((item) => new TemplateItem(item)) || [];
     this.createdTime = createdTime;
     this.udpateTime = udpateTime;
   }

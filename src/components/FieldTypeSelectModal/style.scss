@@ -1,0 +1,19 @@
+.select_modal_wrapper {
+    display: flex;
+    .input {
+        width: 160px;
+    }
+}
+.select_modal {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .btns {
+        display: flex;
+        justify-content: flex-end;
+        button {
+            margin-left: 8px;
+        }
+    }
+}

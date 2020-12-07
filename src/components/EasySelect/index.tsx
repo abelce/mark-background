@@ -14,7 +14,8 @@ const { Option } = Select;
 interface IEasyRemoteSelect {
     entityName: string;
     value: string;
-    onChange: (data: IEntity) => void;
+    disabled?: boolean;
+    onChange?: (data: IEntity) => void;
 }
 
 type IOption = {
@@ -68,7 +69,9 @@ export default class EasyRemoteSelect extends React.Component<IEasyRemoteSelect,
                     value: item.id,
                     data: item,
                 }));
-                this.setState({ data, fetching: false });
+                this.setState({ data });
+            }).finally(() => {
+                this.setState({fetching: false})
             });
     };
 
@@ -100,6 +103,8 @@ export default class EasyRemoteSelect extends React.Component<IEasyRemoteSelect,
                 onSearch={this.fetchUser}
                 onSelect={this.handleChange}
                 style={{ width: '100%' }}
+                // loading={fetching}
+                disabled={this.props.disabled}
             >
                 {data.map(d => (
                     <Option key={d.value} value={d.value}>{d.text}</Option>
