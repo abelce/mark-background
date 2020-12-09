@@ -34,4 +34,6 @@ export const ENUM_FieldType_array = 'array'
 export const ENUM_FieldType_enum = 'enum'
 // 任意类型
 export const ENUM_FieldType_any = 'any'
+// bool
+export const ENUM_FieldType_bool = 'bool'
 

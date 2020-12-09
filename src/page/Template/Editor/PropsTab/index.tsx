@@ -129,7 +129,6 @@ class DraggableTabs extends React.Component {
 }
 
 export default function PropsTabs(props: any) {
-  console.log(props.item);
   return (
     <div className={Style.propsTabs}>
     <DraggableTabs>
@@ -137,7 +136,7 @@ export default function PropsTabs(props: any) {
         <PropsContainer {...props}/>
       </TabPane>
       <TabPane tab="组件" key="2">
-        <ComponentSet {...props}/>
+        {/* <ComponentSet {...props}/> */}
       </TabPane>
     </DraggableTabs>
     </div>

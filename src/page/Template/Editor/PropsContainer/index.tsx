@@ -1,15 +1,19 @@
 import * as React from "react";
 import * as Style from "./style.scss";
 import { Form } from "antd";
-import WidthSlider from "./WidthSlider";
+import WidthSlider from "./components/WidthSlider";
 import Required from "./Required";
-import Readonly from "./Readonly";
+import Readonly from "./components/Readonly";
 import { IExtendProps, ITemplateItem } from "@domain/interface/template";
-import ColSlider from "./ColSlider";
+import ColSlider from "./components/ColSlider";
+import { Presenter } from "@components/presenter";
+import { propsComponents } from "./components";
+import { EditPresenter } from "../editPreenter";
 
 interface IPropsContainer {
     item: ITemplateItem;
-    onChange: (data: any) => void;
+    presenter: EditPresenter;
+    // onChange: (data: any) => void;
 }
 
 export default function PropsContainer(props: IPropsContainer) {
@@ -32,23 +36,28 @@ export default function PropsContainer(props: IPropsContainer) {
                 prop.value = changedValues[prop.key];
             }
         })
-        props.onChange && props.onChange(item);
+        // props.onChange && props.onChange(item);
     }
 
-    if (!props.item) {
+    const currentItem = props.presenter.currentItem;
+
+    if (!currentItem) {
         return null;
     }
 
     return <div className={Style.props}>
         <Form
             // item.nameh或item.compType改变时重新渲染form
-            key={`${props.item.name}_${props.item.compType}`}
+            key={`${currentItem.name}_${currentItem.compType}`}
             initialValues={getPropsInitValues()}
             onValuesChange={handleValuesChange}>
-            <ColSlider/>
-            <WidthSlider />
-            <Required />
-            <Readonly />
+                {
+                    propsComponents.map(Comp => Comp ? <Comp presenter={props.presenter}/> : null)
+                }
+            {/* <ColSlider/> */}
+            {/* <WidthSlider /> */}
+            {/* <Required /> */}
+            {/* <Readonly /> */}
         </Form>
     </div>;
 }

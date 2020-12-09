@@ -120,26 +120,3 @@ export default function ComponentSet(props: ComponentSet) {
   );
 }
 
-export function getDefaultCompByField(field: IField) {
-  switch (field.fieldType) {
-    case ENUM_FIELDTYPE_STRING:
-      return "input";
-    case ENUM_FIELDTYPE_INT:
-    case ENUM_FIELDTYPE_INT8:
-    case ENUM_FIELDTYPE_INT16:
-    case ENUM_FIELDTYPE_INT32:
-    case ENUM_FIELDTYPE_INT64:
-    case ENUM_FIELDTYPE_UINT:
-    case ENUM_FIELDTYPE_UINT8:
-    case ENUM_FIELDTYPE_UINT16:
-    case ENUM_FIELDTYPE_UINT32:
-    case ENUM_FIELDTYPE_UINT64:
-    case ENUM_FIELDTYPE_FLOAT32:
-    case ENUM_FIELDTYPE_FLOAT64:
-      return "inputNumber";
-    case ENUM_FIELDTYPE_BOOL:
-      return 'checkbox';
-    default:
-      return 'input';
-  }
-}

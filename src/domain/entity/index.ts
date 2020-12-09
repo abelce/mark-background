@@ -22,6 +22,8 @@ export class EntityField {
     referEntityID = '';
     referEntityName = '';
     fieldType:string = '';
+    isAdvance: boolean = false;
+    advanceType: string = '';
 
     get isRefer() {
         return this.fieldType === ENUM_FIELDTYPE_OBJECT;
@@ -40,13 +42,15 @@ export class EntityField {
     }
 
     constructor(data: any) {
-        const {id, name, label, referEntityID, referEntityName, fieldType} = data || {};
+        const {id, name, label, referEntityID, referEntityName, fieldType, isAdvance, advanceType} = data || {};
         this.id = id;
         this.name = name;
         this.label = label;
         this.referEntityID= referEntityID;
         this.referEntityName = referEntityName;
         this.fieldType = fieldType;
+        this.isAdvance = isAdvance;
+        this.advanceType = advanceType;
     }
 }
 

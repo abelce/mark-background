@@ -6,7 +6,7 @@ export class EnumItem implements IEnumItem {
   value: string
   description: string
 
-  constructor({key, value, description}={}){
+  constructor({key, value, description}: IEnumItem={}){
     this.key = key;
     this.value = value;
     this.description = description;

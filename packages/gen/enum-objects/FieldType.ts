@@ -102,4 +102,10 @@ export const ENUM_object_FieldType = {
     value: 'any',
     description: '任意类型',
   },
+  // bool
+  bool: {
+    key: 'bool',
+    value: 'bool',
+    description: 'bool',
+  },
 }

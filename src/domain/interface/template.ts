@@ -12,8 +12,8 @@ export interface ITemplateItem {
     label: string; // 默认与entity相同
     name: string;
     compType: string;
-    readonly: boolean;
-    required: boolean;
+    readonly?: boolean;
+    required?: boolean;
     width: number;
     extendProps?: Array<IExtendProps>;
 }

@@ -15,6 +15,12 @@ $activeBg: rgb(186, 231, 255);
         background-color: $activeBg;
         border: 1px solid #1890FF;
     }
+    :global {
+        .ant-input,
+        .ant-picker {
+            width: 100%;
+        }
+    }
 }
 
 .active {

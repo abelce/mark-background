@@ -8,7 +8,7 @@ export class Enum implements IEnum {
   items: string
   rule: string
 
-  constructor({id, name, label, items, rule}={}){
+  constructor({id, name, label, items, rule}: IEnum={}){
     this.id = id;
     this.name = name;
     this.label = label;

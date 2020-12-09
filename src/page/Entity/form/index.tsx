@@ -32,6 +32,7 @@ import { v4 as uuidv4 } from "uuid";
 import EasyRemoteSelect from "@components/EasySelect";
 import BaseForm from "@components/Form";
 import { FieldTypeSelectModal } from "@components/FieldTypeSelectModal";
+import { debug } from "leancloud-storage";
 
 interface IColumn {
   title: string;
@@ -161,9 +162,10 @@ export default class EntityForm extends React.Component<IChildrenProps> {
   }
 
   // 删除属性
-  handleRemove = (entity: IEntity) => {
+  handleRemove = (entity: IField) => {
     const { data } = this.props;
-    data.fields = data.fields.filter((field) => field.id !== entity.id);
+    data.fields = data.fields.filter((field) => field.name !== entity.name);
+    debugger;
     this.handleChange(data);
   };
 
@@ -249,11 +251,14 @@ export default class EntityForm extends React.Component<IChildrenProps> {
   };
 
   handleReferChange = (value: IEntity, index: number) => {
-    debugger;
-    const { id, name } = value;
+    const { advanceType, fieldType, isAdvance, referEntityID, referEntityName } = value;
     const { data } = this.props;
-    data.fields[index]["referEntityID"] = id;
-    data.fields[index]["referEntityName"] = name;
+    debugger;
+    data.fields[index]["referEntityID"] = referEntityID;
+    data.fields[index]["referEntityName"] = referEntityName;
+    data.fields[index]["advanceType"] = advanceType;
+    data.fields[index]["fieldType"] = fieldType;
+    data.fields[index]["isAdvance"] = isAdvance;
     this.handleChange({ ...data });
   };
 
@@ -311,7 +316,7 @@ export default class EntityForm extends React.Component<IChildrenProps> {
 
   private getRowRender = (row: IEntity, rowIndex: number) => {
     return (
-      <div className={Style.table_tr}>
+      <div className={Style.table_tr} key={row.id || row.name}>
         {this.columns.map((col, index) => {
           const text = row[col.dataIndex];
           return (

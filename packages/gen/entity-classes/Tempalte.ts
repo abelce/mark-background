@@ -1,23 +1,28 @@
 import { ITempalte } from '../entity-interfaces/Tempalte'
-import { Iorder } from '../entity-interfaces/order'
+import { TemplateItem } from '../entity-classes/TemplateItem'
+import { ITemplateItem } from '../entity-interfaces/TemplateItem'
 
 export class Tempalte implements ITempalte {
 
   id: string
-  label: string
-  isDefault: ITempalte
-  entityID: Array<Iorder>
-  startDate: number
-  endDate: number
-  orderCount: number
+  referEntityName: string
+  referEntityID: string
+  items: Array<ITemplateItem>
+  isDeleted: boolean
+  createdTime: number
+  updateTime: string
+  operatorID: string
+  formProps: any
 
-  constructor({id, label, isDefault, entityID, startDate, endDate, orderCount}={}){
+  constructor({id, referEntityName, referEntityID, items, isDeleted, createdTime, updateTime, operatorID, formProps}: ITempalte={}){
     this.id = id;
-    this.label = label;
-    this.isDefault = isDefault;
-    this.entityID = entityID || [];
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.orderCount = orderCount;
+    this.referEntityName = referEntityName;
+    this.referEntityID = referEntityID;
+    this.items = (items || []).map(item => new TemplateItem(item));
+    this.isDeleted = isDeleted;
+    this.createdTime = createdTime;
+    this.updateTime = updateTime;
+    this.operatorID = operatorID;
+    this.formProps = formProps;
   }
 }

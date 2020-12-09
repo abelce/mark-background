@@ -1,5 +1,16 @@
 $borderColor: #bfbfbf;
 
+.baseForm {
+    background-color: #ffffff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.footerContainer {
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
 .editor {
     padding: 4px;
     flex: 1;

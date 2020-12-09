@@ -1,29 +1,18 @@
+import { Button } from 'antd';
 import React from 'react';
-import { GithubOutlined } from '@ant-design/icons';
-import { DefaultFooter } from '@ant-design/pro-layout';
+import * as Style from './style.scss';
 
-export default () => (
-  <DefaultFooter
-    copyright="2020 蚂蚁集团体验技术部出品"
-    links={[
-      {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
-        blankTarget: true,
-      },
-      {
-        key: 'github',
-        title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,
-      },
-      {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
-        blankTarget: true,
-      },
-    ]}
-  />
-);
+interface IFooter {
+  onSave: () => void;
+  onCancel: () => void;
+}
+export function Footer(props: IFooter) {
+  return (
+    <div className={Style.footer}>
+      <Button onClick={props.onCancel}>取消</Button>
+      <Button type="primary" onClick={props.onSave}>
+        提交
+      </Button>
+    </div>
+  );
+}

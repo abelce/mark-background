@@ -34,4 +34,6 @@ export declare enum ENUM_declare_FieldType {
   enum = 'enum',
   // 任意类型
   any = 'any',
+  // bool
+  bool = 'bool',
 }

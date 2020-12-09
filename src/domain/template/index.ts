@@ -64,7 +64,7 @@ export class TemplateItem implements ITemplateItem {
 }
 
 const extendPropsFuncMap = {
-  button: getButtonExtenProps,
+  button: getButtonExtendsProps,
 };
 
 // 切换组件时重新设置所有的属性
@@ -100,7 +100,7 @@ function getDefaultExtendProps(compType: string) {
   return defaultProps.concat();
 }
 
-export function getButtonExtenProps() {
+export function getButtonExtendsProps() {
   // button组件需要按钮text
   const extendProps: Array<IExtend> = [
     {
@@ -112,6 +112,19 @@ export function getButtonExtenProps() {
       type: "comp-attr", // 组件自身的属性，作用在组件本身，eg: <Input type="primary"/>
       key: "type",
       value: "primary",
+    },
+  ];
+
+  return extendProps;
+}
+
+
+export function getInputExtendsProps() {
+  const extendProps: Array<IExtend> = [
+    {
+      type: "attr",
+      key: "type",
+      value: "password",
     },
   ];
 

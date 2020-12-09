@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Select } from "antd";
-import {ENUM_FIELFTYPE} from '@gen/enumObjects';
+import {ENUM_object_FieldType} from '@gen/enum-objects';
 
 const { Option } = Select;
 
-const options = Reflect.ownKeys(ENUM_FIELFTYPE).map(key => ({
-  label: ENUM_FIELFTYPE[key].description,
-  value: ENUM_FIELFTYPE[key].value,
+const options = Reflect.ownKeys(ENUM_object_FieldType).map(key => ({
+  label: ENUM_object_FieldType[key].description,
+  value: ENUM_object_FieldType[key].value,
 }))
 
 interface IFieldType {

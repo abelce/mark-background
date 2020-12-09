@@ -11,19 +11,26 @@ import * as Style from "./style.scss";
 
 export function FieldTypeSelectModal(props: ISelectModal) {
   const handleShowModal = () => {
-    Modals.show(SelectModal, (props = {})).then((data) => {
+    Modals.show(SelectModal, {...props}).then((data) => {
       props.onChange && props.onChange(data);
     });
   };
 
+  const renderAdvance = () => {
+    if(props.referEntityID) {
+      return <EasyRemoteSelect entityName="entity" value={props.referEntityID} disabled/>
+    }  
+    if (props.isAdvance) {
+      return <FieldType value={props.advanceType} disabled />
+    }
+    return null;
+  }
+
   return (
     <div className={Style.select_modal_wrapper}>
       <div className={Style.input}>
-        {
-          (props.isAdvance && props.referEntityID)
-          ? <EasyRemoteSelect entityName="entity" value={props.referEntityID} />
-          : <FieldType value={props.fieldType} disabled />
-        }
+        <FieldType value={props.fieldType} disabled />
+        {renderAdvance()}
       </div>
       <Button type="link" onClick={handleShowModal}>
         编辑

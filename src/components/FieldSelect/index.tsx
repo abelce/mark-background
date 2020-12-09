@@ -1,27 +1,29 @@
 import { IField } from "@domain/interface";
+import { EditPresenter } from "@page/Template/Editor/editPreenter";
 import { getEntityByID } from "@services";
 import Checkbox from "antd/lib/checkbox/Checkbox";
-import { template, values } from "lodash";
+import { observer } from "mobx-react";
 import * as React from "react";
+import { oc } from "ts-optchain";
 import * as Style from "./style.scss";
 
 const { useEffect, useState, useCallback, useMemo } = React;
 
 interface IFieldSelect {
-  entityName: string;
-  entityID: string;
-  value: Array<IField>;
-  onInsert: (field: IField) => void;
-  onRemove: (name: string) => void;
+  presenter: EditPresenter;
 }
 
+@observer
 export default function FieldSelect(props: IFieldSelect) {
   const [entity, setEntity] = useState(null);
   const [checkList, setCheckList] = useState({});
 
+  const {presenter} = props;
+  // const entityName = presenter.entityName;
+
   useEffect(() => {
     try {
-      getEntityByID(props.entityName, props.entityID).then((result) => {
+      getEntityByID('entity', presenter.data.referEntityID).then((result) => {
         setEntity(result);
       });
     } catch (e) {
@@ -31,23 +33,24 @@ export default function FieldSelect(props: IFieldSelect) {
 
   const handleSelect = (field: IField) => {
     if (!checkList[field.name]) {
-      props.onInsert(field);
+      props.presenter.addItem(field);
     } else {
-      props.onRemove(field.name);
+      props.presenter.removeItem(field.name);
     }
   };
 
   useMemo(() => {
+    const items = oc(presenter.currentItem).items([]);
     const result = {};
     if (entity) {
       entity.fields.forEach((field) => {
-        result[field.name] = (props.value || []).some(
+        result[field.name] = (items || []).some(
           (templateField) => templateField.name === field.name
         );
       });
     }
     setCheckList(result);
-  }, [(props.value || []).length, entity]);
+  }, [oc(presenter.currentItem).items([]).length, entity]);
 
   if (!entity) {
     return null;

@@ -70,6 +70,13 @@ export class SelectModal extends React.Component<ISelectModal> {
     };
   }
 
+  getInitialValues = () => {
+
+    return {
+
+    }
+  }
+
   handleChange = (data: object) => {
     this.setState({
       data: {
@@ -94,7 +101,6 @@ export class SelectModal extends React.Component<ISelectModal> {
 
   handleReferEntityChange = (data: IEntity) => {
     const { id, name } = data;
-    debugger;
     this.handleChange({
       referEntityID: id,
       referEntityName: name,
@@ -133,6 +139,7 @@ export class SelectModal extends React.Component<ISelectModal> {
             {...formLayout}
             className={Style.select_modal}
             onFinish={this.handleSubmit}
+            initialValues={this.state.data}
           >
             <FormItem label="类型" required>
               <FieldType

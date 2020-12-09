@@ -1,17 +1,19 @@
-import Loading from '@page/common/loading';
 import { Spin } from 'antd';
 import * as React from 'react';
 
 interface ILoadingContainer {
-    loading: boolean,
+    spinning: boolean,
     tip: string;
-    children?: React.Component | React.FC | null;
+    // children?: React.Component | React.FC | JSX.Element;
 }
-export default function LoadingContainer(props: ILoadingContainer) {
-    if (props.loading) {
-        return <div>
-            <Spin spinning={props.loading} tip={props.tip}/>
-        </div>
+export default class LoadingContainer extends React.Component<ILoadingContainer> {
+    render() {
+        if (this.props.spinning) {
+            return <div>
+                <Spin spinning={this.props.spinning} tip={this.props.tip}/>
+            </div>
+        }
+        return this.props.children;
     }
-    return props.children;
+
 }
