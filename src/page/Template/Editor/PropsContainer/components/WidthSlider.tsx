@@ -1,22 +1,11 @@
-import { Form, InputNumber, Slider } from "antd";
+import { Form, InputNumber } from "antd";
 import * as React from "react";
+import Wrapper from './Wrapper';
 
-interface WidthValue {
-  type: "fixed" | "per"; // 固定宽度、百分比
-  value: number;
-}
-interface IWidthSelector {
-  value: WidthValue;
-  onChange: (value: WidthValue) => void;
-}
-// function WidthSelector(props: IWidthSelector) {
-//   const { type, value, onChange } = props;
-
-// }
-
-export default function WidthSlider() {
+const name = 'width';
+function WidthSlider() {
   return (
-    <Form.Item label="宽度" name="width">
+    <Form.Item label="宽度" name={name}>
       <InputNumber
         min={0}
         max={100}
@@ -26,3 +15,6 @@ export default function WidthSlider() {
     </Form.Item>
   );
 }
+
+
+export default Wrapper(name)(WidthSlider);

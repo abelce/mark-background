@@ -4,7 +4,7 @@ import { IPropComponent } from ".";
 import Wrapper from "./Wrapper";
 
 const name = 'col';
-function ColSlider(props: IPropComponent) {
+function ColSlider() {
   return (
     <Form.Item label="栅格" name={name}>
       <InputNumber

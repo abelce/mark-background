@@ -116,12 +116,12 @@ export default class Editor extends React.Component {
                   />
                 </div>
                 <div className={Style.editor_content}>
-                  {/* <Main
-                    items={items}
+                  <Main
+                    // items={items}
                     presenter={this.presenter}
                     // current={this.presenter.cu}
                     // onSelect={this.handleCompSelect}
-                  /> */}
+                  />
                 </div>
                 <div className={Style.editor_props}>
                   {/* <PropsContainer item={this.state.crrrencuComp as ITemplateItem} onChange={this.handleChangeTemplateItemProps}/> */}

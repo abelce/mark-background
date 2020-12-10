@@ -97,7 +97,7 @@ function getDefaultExtendProps(compType: string) {
     : [];
   defaultProps = defaultProps.concat(spicalExtendProps);
 
-  return defaultProps.concat();
+  return defaultProps;
 }
 
 export function getButtonExtendsProps() {

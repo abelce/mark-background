@@ -56,13 +56,9 @@ export class Presenter {
         this.entityName,
         this.id
       )) as unknown) as any;
-      // runInAction(() => {
       this.data = result;
       this.loading = ENUM_LOADING_SUCCESS;
-      // })
-      
     } catch (e) {
-      // console.error(e);
       this.loading = ENUM_LOADING_FAILED;
     }
   }
