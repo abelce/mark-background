@@ -19,6 +19,7 @@ import { TemplateItem } from "@domain/template";
 import {action, computed, observable, runInAction} from "mobx";
 import { oc } from "ts-optchain";
 import {autobind} from "core-decorators";
+import {IExtendProps} from "@domain/interface/template";
 
 @autobind
 export class EditPresenter extends Presenter {
@@ -30,17 +31,28 @@ export class EditPresenter extends Presenter {
   @observable
   public compProps;
 
-  // 表单的属性信息
-  @observable
-  public formProps;
-
   // 当前选中的字段
   @computed
   public get currentItem() {
     return oc(this.data)
-      .items([])
-      .find((item) => item.name === this.currentItemName);
+        .items([])
+        .find((item) => item.name === this.currentItemName);
   }
+
+  @computed
+  public get currentItemIndex() {
+    return oc(this.data)
+        .items([])
+        .findIndex((item) => item.name === this.currentItemName);
+  }
+
+  public get currentExtendProps() {
+    return this.currentItem.extendProps;
+  }
+
+  // 表单的属性信息
+  @observable
+  public formProps;
 
   @action
   public addItem(field: IField) {
@@ -79,6 +91,13 @@ export class EditPresenter extends Presenter {
     if (this.currentItemName !== name) {
       this.currentItemName = name;
     }
+  }
+
+  // 修改当前选中组件的extendProps
+  @action
+  public setExtendProps(extendProps: Array<IExtendProps>) {
+    this.data.items[this.currentItemIndex].extendProps = extendProps;
+    this.data = Object.assign({}, this.data);
   }
 }
 

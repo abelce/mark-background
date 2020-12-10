@@ -6,6 +6,7 @@ import {propsComponents} from "./components";
 import {EditPresenter} from "../editPreenter";
 import {Observer} from "mobx-react";
 import {oc} from "ts-optchain";
+import {runInAction} from "mobx";
 
 interface IPropsContainer {
     item: ITemplateItem;
@@ -27,12 +28,15 @@ export default function PropsContainer(props: IPropsContainer) {
 
     // 属性改变时修改模版上元素的属性值
     const handleValuesChange = (changedValues, allValues: any) => {
-        const {currentItem} = props.presenter;
-        currentItem.extendProps.forEach((prop: IExtendProps) => {
-            if (Reflect.has(changedValues, prop.key)) {
-                prop.value = changedValues[prop.key];
-            }
-        });
+        runInAction(() => {
+            const tmp = props.presenter.currentExtendProps.map((prop: IExtendProps) => {
+                if (Reflect.has(changedValues, prop.key)) {
+                    prop.value = changedValues[prop.key];
+                }
+                return prop;
+            });
+            props.presenter.setExtendProps(tmp);
+        })
     };
 
     // item.nameh或item.compType改变时重新渲染form

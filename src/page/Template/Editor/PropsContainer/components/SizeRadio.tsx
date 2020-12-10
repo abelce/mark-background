@@ -7,11 +7,11 @@ const options = [
   { label: "default", value: "default" },
   { label: "large", value: "large" },
 ];
-const name = "required";
+const name = "size";
 
 function SizeRadio() {
   return (
-    <Form.Item label="必填" name="required">
+    <Form.Item label="必填" name={name}>
       <Radio.Group options={options} optionType="button" buttonStyle="solid" />
     </Form.Item>
   );

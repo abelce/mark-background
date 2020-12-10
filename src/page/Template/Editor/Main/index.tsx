@@ -112,7 +112,7 @@ function getCompAttr(item: IViewItem) {
     const {extendProps = []} = item;
     const attrs = {};
     extendProps.forEach((prop: IProp) => {
-        if (prop.type === 'comp-attr') {
+        if (prop.type === 'attr') {
             switch (prop.key) {
                 case 'readonly':
                     attrs['disabled'] = prop.value;
@@ -169,20 +169,18 @@ function getCompText(item: IViewItem) {
 function renderComp(item: IViewItem, isActive: boolean, onSelect: (name: string) => void) {
     const Comp = switchComp(item);
     const itemProps = getItemProps(item);
-    return (
-        <Col span={getColSpan(item)}>
-            <Form.Item
-                onClick={() => onSelect(item.name)}
-                label={item.label}
-                {...itemProps}
-                className={cn(Style.field, {[Style.active]: isActive})}
-            >
-                <Comp {...getCompAttr(item)} >
-                    {getCompText(item)}
-                </Comp>
-            </Form.Item>
-        </Col>
-    );
+    return <Col span={getColSpan(item)} key={item.name}>
+        <Form.Item
+            onClick={() => onSelect(item.name)}
+            label={item.label}
+            {...itemProps}
+            className={cn(Style.field, {[Style.active]: isActive})}
+        >
+            <Comp {...getCompAttr(item)} >
+                {getCompText(item)}
+            </Comp>
+        </Form.Item>
+    </Col>
 }
 
 function switchComp(item: IViewItem) {

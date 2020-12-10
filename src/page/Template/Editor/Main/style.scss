@@ -1,3 +1,4 @@
+@import "src/assets/css/var";
 .main {
     padding: 2px;
 }
@@ -5,7 +6,6 @@
     display: flex;
 }
 
-$activeBg: rgb(186, 231, 255);
 .field {
     border-radius: 2px;
     padding: 4px;
@@ -13,7 +13,7 @@ $activeBg: rgb(186, 231, 255);
     margin-bottom: 12px;
     &:hover {
         background-color: $activeBg;
-        border: 1px solid #1890FF;
+        border: 1px solid $activeBorderBg;
     }
     :global {
         .ant-input,

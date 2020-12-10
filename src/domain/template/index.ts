@@ -1,4 +1,5 @@
 import { IExtend, ITemplate, ITemplateItem } from "@domain/interface/template";
+import {getExtendProps} from "@domain/template/extendPropsFuncMap";
 
 export class Template implements ITemplate {
   id: string = "";
@@ -54,79 +55,11 @@ export class TemplateItem implements ITemplateItem {
     this.readonly = readonly;
     this.required = required;
     this.width = width;
-    this.extendProps = extendProps || getDefaultExtendProps(this.compType);
+    this.extendProps = extendProps || getExtendProps(this.compType);
   }
 
   // 重置extendProps
   resetExtendProps() {
-    this.extendProps = getDefaultExtendProps(this.compType);
+    this.extendProps = getExtendProps(this.compType);
   }
-}
-
-const extendPropsFuncMap = {
-  button: getButtonExtendsProps,
-};
-
-// 切换组件时重新设置所有的属性
-function getDefaultExtendProps(compType: string) {
-  let defaultProps: Array<IExtend> = [
-    {
-      type: "style",
-      key: "width",
-      value: 100, // 默认100%
-    },
-    {
-      type: "col",
-      key: "col",
-      value: 6, // 栅格值默认为6
-    },
-    {
-      type: "attr",
-      key: "required",
-      value: false,
-    },
-    {
-      type: "comp-attr",
-      key: "readonly",
-      value: false,
-    },
-  ];
-
-  const spicalExtendProps = extendPropsFuncMap[compType]
-    ? extendPropsFuncMap[compType]()
-    : [];
-  defaultProps = defaultProps.concat(spicalExtendProps);
-
-  return defaultProps;
-}
-
-export function getButtonExtendsProps() {
-  // button组件需要按钮text
-  const extendProps: Array<IExtend> = [
-    {
-      type: "text",
-      key: "text",
-      value: "按钮",
-    },
-    {
-      type: "comp-attr", // 组件自身的属性，作用在组件本身，eg: <Input type="primary"/>
-      key: "type",
-      value: "primary",
-    },
-  ];
-
-  return extendProps;
-}
-
-
-export function getInputExtendsProps() {
-  const extendProps: Array<IExtend> = [
-    {
-      type: "attr",
-      key: "type",
-      value: "password",
-    },
-  ];
-
-  return extendProps;
 }
