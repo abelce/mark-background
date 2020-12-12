@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Qiniu = require('qiniu-cdn-webpack-plugin')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const CDN_HOST = `http://cdn.vwood.xyz`
 var webpackConfig = {
@@ -21,7 +22,7 @@ var webpackConfig = {
                 secure: false,
                 changeOrigin: true,
             }
-          }
+        }
     },
     entry: {
         app: `${__dirname}/src/page/App.js`,
@@ -33,14 +34,14 @@ var webpackConfig = {
     },
     module: {
         rules: [{
-                test: /\.(png|woff|woff2|eot|ttf|svg|pdf|jpg)$/,
-                loader: 'url-loader',
-                options: {
-                    name: '[path][name].[hash].[ext]',
-                    limit: 8192,
-                    context: 'src',
-                },
+            test: /\.(png|woff|woff2|eot|ttf|svg|pdf|jpg)$/,
+            loader: 'url-loader',
+            options: {
+                name: '[path][name].[hash].[ext]',
+                limit: 8192,
+                context: 'src',
             },
+        },
             {
                 test: /\.css$/,
                 use: [
@@ -76,31 +77,31 @@ var webpackConfig = {
             {
                 test: [/\.tsx?$/],
                 use: [
-                  {
-                    loader: 'babel-loader',
-                    options: {
-                    //   babelrc: false,
-                      compact: false,
-                      sourceMap: false,
-                      comments: false,
-                      shouldPrintComment: (value = '') =>
-                        value.indexOf('@license') >= 0 ||
-                        value.indexOf('@preserve') >= 0 ||
-                        /webpack[A-Z]/.test(value),
-                      // cacheDirectory: true,
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            //   babelrc: false,
+                            compact: false,
+                            sourceMap: false,
+                            comments: false,
+                            shouldPrintComment: (value = '') =>
+                                value.indexOf('@license') >= 0 ||
+                                value.indexOf('@preserve') >= 0 ||
+                                /webpack[A-Z]/.test(value),
+                            // cacheDirectory: true,
+                        },
                     },
-                  },
-                  {
-                    loader: 'ts-loader',
-                    options: {
-                      happyPackMode: true,
-                      experimentalWatchApi: true,
-                      transpileOnly: true, // 加快编译速度
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            happyPackMode: true,
+                            experimentalWatchApi: true,
+                            transpileOnly: true, // 加快编译速度
+                        },
                     },
-                  },
                 ],
                 exclude: [/node_modules/, /\.scss.ts$/, /\.test.tsx?$/],
-              },
+            },
         ],
         noParse: [require.resolve('lodash')],
     },
@@ -115,6 +116,7 @@ var webpackConfig = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
         }),
+        new MonacoWebpackPlugin(['apex', 'azcli', 'bat', 'clojure', 'coffee', 'cpp', 'csharp', 'csp', 'css', 'dockerfile', 'fsharp', 'go', 'handlebars', 'html', 'ini', 'java', 'javascript', 'json', 'less', 'lua', 'markdown', 'msdax', 'mysql', 'objective', 'perl', 'pgsql', 'php', 'postiats', 'powerquery', 'powershell', 'pug', 'python', 'r', 'razor', 'redis', 'redshift', 'ruby', 'rust', 'sb', 'scheme', 'scss', 'shell', 'solidity', 'sql', 'st', 'swift', 'typescript', 'vb', 'xml', 'yaml'])
     ],
     resolve: {
         alias: {
@@ -231,8 +233,8 @@ if (isProd()) {
 module.exports = webpackConfig;
 
 function scssRules({
-    global
-}) {
+                       global
+                   }) {
     return [
         isDev() ? 'style-loader' : MiniCssExtractPlugin.loader,
         {
@@ -272,7 +274,7 @@ function getMode() {
 
 function getPublicPath() {
     if (isProd()) {
-      return CDN_HOST + '/';
+        return CDN_HOST + '/';
     }
     return '/';
-  }
+}

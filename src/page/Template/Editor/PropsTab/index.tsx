@@ -136,7 +136,7 @@ export default function PropsTabs(props: any) {
         <PropsContainer {...props}/>
       </TabPane>
       <TabPane tab="组件" key="2">
-        {/* <ComponentSet {...props}/> */}
+         <ComponentSet {...props}/>
       </TabPane>
     </DraggableTabs>
     </div>

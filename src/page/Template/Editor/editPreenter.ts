@@ -87,6 +87,7 @@ export class EditPresenter extends Presenter {
   }
 
   // 激活组件
+  @action
   public activeComponent(name: string) {
     if (this.currentItemName !== name) {
       this.currentItemName = name;

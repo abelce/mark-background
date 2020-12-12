@@ -1,8 +1,4 @@
-@import "src/assets/css/var";
-.main {
-    padding: 2px;
-    background: #FFFFFF;
-}
+export const cssString = `
 .form {
     display: flex;
     flex-direction: column;
@@ -13,22 +9,12 @@
     padding: 4px;
     border: 1px solid transparent;
     margin-bottom: 12px;
-    &_hover {
-        &:hover {
-            background-color:  rgb(186, 231, 255);
-            border: 1px solid #1890FF;
-        }
-    }
     :global {
         .ant-input,
         .ant-picker {
             width: 100%;
         }
     }
-}
-
-.active {
-    background-color:  rgb(186, 231, 255);
 }
 
 .footer {
@@ -39,4 +25,4 @@
             margin-left: 8px;
         }
     }
-}
+}`

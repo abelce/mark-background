@@ -9,7 +9,10 @@ $borderColor: #bfbfbf;
 .footerContainer {
     padding: 8px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    .previewBtn {
+
+    }
 }
 .editor {
     padding: 4px;

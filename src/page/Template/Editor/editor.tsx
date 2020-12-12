@@ -1,8 +1,6 @@
-import BaseEntityForm from "@components/EntityForm ";
 import FieldSelect from "@components/FieldSelect";
 import { Footer } from "@components/Footer";
 import LoadingContainer from "@components/LoadingContainer";
-import { Presenter } from "@components/presenter";
 import {
   ENUM_LOADING_SENDING,
   ENUM_MODE_CREATE,
@@ -11,16 +9,17 @@ import {
 import { IField } from "@domain/interface";
 import { ITemplateItem } from "@domain/interface/template";
 import { Template, TemplateItem } from "@domain/template";
-import { action, observable, runInAction } from "mobx";
 import { observer, Observer } from "mobx-react";
 import * as React from "react";
-import { oc } from "ts-optchain";
 import ComponentSet, { getDefaultCompByField } from "./ComponentSet";
 import { EditPresenter } from "./editPreenter";
 import Main from "./Main";
-import PropsContainer from "./PropsContainer";
 import PropsTabs from "./PropsTab";
 import * as Style from "./style.scss";
+import {Button} from "antd";
+import Modals from "@components/modals";
+import {Previw} from "@page/Template/Editor/preview/preview";
+import {runInAction} from "mobx";
 
 @observer
 export default class Editor extends React.Component {
@@ -89,10 +88,17 @@ export default class Editor extends React.Component {
     }
   };
 
+  private  handlePreview = () => {
+    Modals.show(Previw, {presenter: this.presenter})
+  }
+
   private renderFooter = () => {
     if ([ENUM_MODE_CREATE, ENUM_MODE_EDIT].includes(this.presenter.mode)) {
       return (
         <div className={Style.footerContainer}>
+          <div>
+            <Button onClick={this.handlePreview}>预览</Button>
+          </div>
           <Footer onSave={this.saveData} onCancel={this.handleCancel} />
         </div>
       );

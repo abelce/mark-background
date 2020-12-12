@@ -21,13 +21,11 @@ import * as Style from "./style.scss";
 import {observer, Observer} from "mobx-react";
 import {EditPresenter} from "@page/Template/Editor/editPreenter";
 import {oc} from "ts-optchain";
-
+import {getFooterString} from "@page/Template/Editor/Main/footer";
+console.log(Style);
 const _ = {
     get: require("lodash/get"),
 };
-
-const DateRangePicker = DatePicker.RangePicker;
-const TimeRangePicker = TimePicker.RangePicker;
 
 interface IViewItem {
     comp: React.Component | React.FC;
@@ -36,14 +34,12 @@ interface IViewItem {
 }
 
 interface IMain {
-    // items: Array<IViewItem>;
-    // current: IViewItem;
-    // onSelect: (item: IViewItem) => void,
     presenter: EditPresenter;
+    isPreview?: boolean; // 是否为预览模式
 }
 
 // 获取组件的style
-function getStyle(item: IViewItem) {
+export function getStyle(item: IViewItem) {
     const {extendProps = []} = item;
     const style = {};
     extendProps.forEach((prop: IProp) => {
@@ -59,12 +55,14 @@ function getStyle(item: IViewItem) {
 }
 
 // 获取所有的属性
-function getAttrs(item: IViewItem) {
+export function getAttrs(item: IViewItem) {
     const {extendProps = []} = item;
     const attrs = {};
     extendProps.forEach((prop: IProp) => {
         if (prop.type === 'attr') {
             switch (prop.key) {
+                case 'readonly':
+                    attrs["disabled"] = prop.value;
                 default:
                     attrs[prop.key] = prop.value;
                     break;
@@ -75,7 +73,7 @@ function getAttrs(item: IViewItem) {
 }
 
 // 获取每一个组件的props
-function getItemProps(item: IViewItem) {
+export function getItemProps(item: IViewItem) {
     const {extendProps} = item;
     return {
         style: getStyle(item),
@@ -84,7 +82,7 @@ function getItemProps(item: IViewItem) {
 }
 
 // 获取元素的栅格大小
-function getColSpan(item: IViewItem) {
+export function getColSpan(item: IViewItem) {
     const {extendProps = []} = item;
     let col = 0;
     extendProps.forEach((prop: IProp) => {
@@ -108,11 +106,11 @@ function getWidth(item: IViewItem) {
     return '';
 }
 
-function getCompAttr(item: IViewItem) {
+export function getCompAttr(item: IViewItem) {
     const {extendProps = []} = item;
     const attrs = {};
     extendProps.forEach((prop: IProp) => {
-        if (prop.type === 'attr') {
+        if (prop.type === 'comp-attr') {
             switch (prop.key) {
                 case 'readonly':
                     attrs['disabled'] = prop.value;
@@ -127,24 +125,30 @@ function getCompAttr(item: IViewItem) {
 }
 
 
-const layout = {
+export const formLayout = {
     labelCol: {span: 24},
     wrapperCol: {span: 24},
 };
 // 主视曲
 export default function Main(props: IMain) {
-    // const {items = [], onSelect} = props;
     return (
         <div>
             <Observer>
                 {
                     () => (
-                        <Form {...layout} layout="vertical" className={Style.form}>
+                        <Form {...formLayout} layout="vertical" className={Style.form}>
                             <Row style={{width: '100%'}}>
                                 {oc(props.presenter).data.items([]).map((item) =>
-                                    renderComp(item, item.name === oc(props.presenter).currentItemName(''), props.presenter.activeComponent)
+                                    renderComp({
+                                        item,
+                                        isActive: props.isPreview ? false : item.name === oc(props.presenter).currentItemName(''),
+                                        onSelect: props.isPreview ? () => {
+                                        } : props.presenter.activeComponent,
+                                        isPreview: props.isPreview,
+                                    })
                                 )}
                             </Row>
+                            {props.isPreview && getFooterString()}
                         </Form>
                     )
                 }
@@ -154,7 +158,7 @@ export default function Main(props: IMain) {
 }
 
 // 获取组件的text文本
-function getCompText(item: IViewItem) {
+export function getCompText(item: IViewItem) {
     const {extendProps = []} = item;
     for (let prop of extendProps) {
         if (prop.type === 'text') {
@@ -166,24 +170,60 @@ function getCompText(item: IViewItem) {
     return null;
 }
 
-function renderComp(item: IViewItem, isActive: boolean, onSelect: (name: string) => void) {
+interface IRenderComp {
+    item: IViewItem,
+    isActive: boolean,
+    onSelect: (name: string) => void,
+    isPreview: boolean,
+
+}
+
+export function renderComp(props: IRenderComp) {
+    const {item, isActive, onSelect, isPreview} = props;
     const Comp = switchComp(item);
     const itemProps = getItemProps(item);
     return <Col span={getColSpan(item)} key={item.name}>
         <Form.Item
-            onClick={() => onSelect(item.name)}
+            name={item.name}
+            onClick={() => onSelect && onSelect(item.name)}
             label={item.label}
             {...itemProps}
-            className={cn(Style.field, {[Style.active]: isActive})}
+            className={cn(Style.field, {[Style.field_hover]: !isPreview,[Style.active]: isActive})}
+            rules={getRules(item)}
         >
-            <Comp {...getCompAttr(item)} >
+            <Comp
+                {...getCompAttr(item)}
+            >
                 {getCompText(item)}
             </Comp>
         </Form.Item>
     </Col>
 }
 
-function switchComp(item: IViewItem) {
+// 获取字段的校验规则
+export function getRules(item) {
+    const {extendProps = []} = item;
+    // 字段的公共规则
+    const baseRules = [
+        'required',
+        'min',
+        'max',
+    ];
+
+    const result = [];
+    baseRules.forEach(ruleField => {
+        const attr = extendProps.find(p => p.key === ruleField);
+        if (attr) {
+            result.push({
+                type: item.fieldtype,
+                [ruleField]: attr.value,
+            })
+        }
+    })
+    return result;
+}
+
+export function switchComp(item: IViewItem) {
     switch (item.compType) {
         case "input":
             return Input;
@@ -202,16 +242,49 @@ function switchComp(item: IViewItem) {
         case "date":
             return DatePicker;
         case "dateRange":
-            return DateRangePicker;
+            return DatePicker.RangePicker;
         case 'datetime':
             return TimePicker;
         case 'datetimeRange':
-            return TimeRangePicker;
+            return TimePicker.RangePicker;
         case 'rate':
             return Rate;
         case 'button':
             return Button;
         default:
             return Input;
+    }
+}
+
+export function switchCompString(item: IViewItem) {
+    switch (item.compType) {
+        case "input":
+            return 'Input';
+        case "textarea":
+            return 'Input.TextArea';
+        case "inputNumber":
+            return 'InputNumber';
+        case "checkbox":
+            return 'Checkbox';
+        case "radio":
+            return 'Radio';
+        case "switch":
+            return 'Switch';
+        case "slider":
+            return 'Slider';
+        case "date":
+            return 'DatePicker';
+        case "dateRange":
+            return 'DatePicker.RangePicker';
+        case 'datetime':
+            return 'TimePicker';
+        case 'datetimeRange':
+            return 'TimePicker.RangePicker';
+        case 'rate':
+            return 'Rate';
+        case 'button':
+            return 'Button';
+        default:
+            return 'Input';
     }
 }

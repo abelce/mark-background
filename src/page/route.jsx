@@ -4,7 +4,6 @@ import { hot } from "react-hot-loader";
 import * as Style from "./style.scss";
 import Loading from "./common/loading";
 import Header from "./layout/header";
-import Footer from "./layout/footer";
 import { getAuthInfo } from "@utils";
 import { getUser } from "@domain/user/action.js";
 const Login = React.lazy(() => import("./login"));

@@ -19,7 +19,7 @@ export function baseProps() {
             value: false,
         },
         {
-            type: "attr",
+            type: "comp-attr",
             key: "readonly",
             value: false,
         },
