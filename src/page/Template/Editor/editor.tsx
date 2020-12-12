@@ -99,7 +99,7 @@ export default class Editor extends React.Component {
           <div>
             <Button onClick={this.handlePreview}>预览</Button>
           </div>
-          <Footer onSave={this.saveData} onCancel={this.handleCancel} />
+          <Footer onSave={this.presenter.saveData} onCancel={this.handleCancel} />
         </div>
       );
     }

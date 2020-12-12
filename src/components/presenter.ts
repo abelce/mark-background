@@ -6,11 +6,12 @@ import {
   ENUM_MODE_EDIT,
   ENUM_MODE_VIEW,
 } from "@domain/enums";
-import { getEntityByID } from "@services/entity";
+import {createEntity, getEntityByID, updateEntity} from "@services/entity";
 import { parseQuery } from "@utils";
 import { debug } from "leancloud-storage";
 import _ from "lodash";
 import { action, observable, runInAction } from "mobx";
+import {message} from "antd";
 
 export class Presenter {
   // 业务对象, 不可更改
@@ -63,8 +64,40 @@ export class Presenter {
     }
   }
 
-//   // 对获取到的数据做处理
-//   public dataReslover(data: Array<T>): Array<T> {
-//     return data;
-//   }
+  saveData = () => {
+    switch (this.mode) {
+      case ENUM_MODE_CREATE:
+        this.createData();
+        break;
+      case ENUM_MODE_EDIT:
+        this.updateData();
+        break;
+    }
+  };
+
+  createData = async () => {
+    try {
+      this.loading = ENUM_LOADING_SENDING;
+      await createEntity(this.entityName, this.data);
+      this.loading = ENUM_LOADING_SUCCESS;
+      message.success("保存成功");
+    } catch (e) {
+      console.log(e);
+      this.loading = ENUM_LOADING_FAILED;
+      message.error("保存失败");
+    }
+  };
+
+  updateData = async () => {
+    try {
+      this.loading = ENUM_LOADING_SENDING;
+      await updateEntity(this.entityName, this.data);
+      this.loading = ENUM_LOADING_SUCCESS;
+      message.success("保存成功");
+    } catch (e) {
+      console.log(e);
+      this.loading = ENUM_LOADING_FAILED;
+      message.error("保存失败");
+    }
+  };
 }
