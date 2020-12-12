@@ -9,7 +9,7 @@
     "prod": "export NODE_ENV=production && rm -rf build && mkdir build && cp -R ./src/common/assets ./build/assets && webpack --config webpack.config.js && npm run deploy",
     "deploy": "rm -rf dist && mv build dist",
     "prod:admin": "export NODE_ENV=admin && rm -rf build && mkdir build && cp -R ./src/common/assets ./build/assets && webpack --config webpack.config.js && npm run deploy",
-    "linux:prod": "rm -rf /dist/* && mv ./dist/* /dist",
+    "linux:prod": "rm -rf /dist/* && mv ./dist/* /build",
     "next-dev": "next",
     "next-build": "next build",
     "next-start": "next start"
