@@ -1,0 +1,59 @@
+.style__entity--1jYn0 {
+  padding: 12px;
+  margin: 32px; }
+  .style__entity--1jYn0 .style__header--1RKDg {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between; }
+    .style__entity--1jYn0 .style__header--1RKDg input {
+      width: 200px; }
+  .style__entity--1jYn0 .style__ordinal--_4Y4f {
+    width: 40px; }
+
+.style__table--W7iFB {
+  width: 100%; }
+  .style__table_header--3eViE {
+    min-height: 32px;
+    background-color: rgba(0, 0, 0, 0.02); }
+  .style__table_tr--1ZxUv {
+    display: table-row;
+    display: flex; }
+  .style__table_td--3rLSx {
+    padding: 4px 8px;
+    display: table-cell; }
+
+.style__baseForm--sYDCC {
+  background-color: #ffffff;
+  flex: 1; }
+
+.style__footerContainer--2MPL7 {
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end; }
+
+.style__footer--fBHXW > button {
+  margin-left: 8px; }
+
+.style__select_modal_wrapper--2HiLQ {
+  display: flex; }
+  .style__select_modal_wrapper--2HiLQ .style__input--3jykq {
+    width: 160px; }
+
+.style__select_modal--qGEtD {
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
+  .style__select_modal--qGEtD .style__btns--2vrFO {
+    display: flex;
+    justify-content: flex-end; }
+    .style__select_modal--qGEtD .style__btns--2vrFO button {
+      margin-left: 8px; }
+
+.style__list--usPz6 {
+  margin: 16px;
+  flex: 1; }
+  .style__list--usPz6 .style__header--2a9wA {
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end; }
+
