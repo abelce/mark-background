@@ -2,34 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a62b99e5-1b1a-4255-a55d-c4d7ed2f81d2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/cssString.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/formString/footerString.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/formString/formString.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/formString/importString.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/formString/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/formString/itemString.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/formString/utils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/preview/CodeEditor.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/preview/formRender.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/preview/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/preview/preview.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/preview/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/Template/Editor/preview/tabs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/var.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/var.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/assets/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/assets/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/template/extendPropsFuncMap/baseProps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/template/extendPropsFuncMap/baseProps.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/ComponentSet/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/ComponentSet/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/Main/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/Main/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/Main/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/PropsTab/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/PropsTab/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/editPreenter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/editPreenter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/Template/Editor/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/Template/Editor/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/route.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/route.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +57,7 @@
       <workItem from="1607588278341" duration="2185000" />
       <workItem from="1607609087352" duration="7610000" />
       <workItem from="1607654703427" duration="4107000" />
-      <workItem from="1607691225709" duration="20225000" />
+      <workItem from="1607691225709" duration="24116000" />
     </task>
     <servers />
   </component>

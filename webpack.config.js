@@ -4,6 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Qiniu = require('qiniu-cdn-webpack-plugin')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const CDN_HOST = `http://cdn.vwood.xyz`
 var webpackConfig = {
@@ -88,7 +89,6 @@ var webpackConfig = {
                                 value.indexOf('@license') >= 0 ||
                                 value.indexOf('@preserve') >= 0 ||
                                 /webpack[A-Z]/.test(value),
-                            // cacheDirectory: true,
                         },
                     },
                     {
@@ -167,37 +167,26 @@ var webpackConfig = {
             },
         },
         minimizer: [
-            // new OptimizeCSSAssetsPlugin({
-            //     assetNameRegExp: /\.css$/g,
-            //     cssProcessor: require('cssnano'),
-            //     cssProcessorPluginOptions: {
-            //         preset: [
-            //             'default',
-            //             {
-            //                 discardComments: {
-            //                     removeAll: true,
-            //                 },
-            //                 normalizeUnicode: false,
-            //             },
-            //         ],
+            // new UglifyJsPlugin({
+            //     exclude: [/\.min\.js$/],
+            //     cache: true,
+            //     parallel: true,
+            //     sourceMap: false,
+            //     extractComments: false,
+            //     uglifyOptions: {
+            //         compress: {
+            //             unused: true,
+            //             drop_debugger: true,
+            //         },
+            //         output: {
+            //             comments: false,
+            //         },
             //     },
-            //     canPrint: true,
             // }),
-            new UglifyJsPlugin({
-                exclude: /\.min\.js$/,
-                cache: true,
+            new TerserPlugin({
+                exclude: [/\.min\.js$/],
                 parallel: true,
-                sourceMap: false,
-                extractComments: false,
-                uglifyOptions: {
-                    compress: {
-                        unused: true,
-                        drop_debugger: true,
-                    },
-                    output: {
-                        comments: false,
-                    },
-                },
+                extractComments: true
             }),
         ],
     },

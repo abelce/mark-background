@@ -2,10 +2,7 @@
   "presets": [
     ["@babel/preset-env", {
       "loose":true,
-      "modules": false,  // 关闭babel的模块化，使用webpack的模块化，这样可以使用tree-shaking
-      // "targets": {
-      //   "browsers": ["Chrome >=59"]
-      // },
+      "modules": false  // 关闭babel的模块化，使用webpack的模块化，这样可以使用tree-shaking
     }],
     "@babel/preset-react",
     "@babel/preset-typescript"
