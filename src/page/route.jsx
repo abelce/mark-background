@@ -7,7 +7,7 @@ import Header from "./layout/header";
 import { getAuthInfo } from "@utils";
 import { getUser } from "@domain/user/action.js";
 const Login = React.lazy(() => import("./login"));
-const Home = React.lazy(() => import("./home"));
+// const Home = React.lazy(() => import("./home"));
 const Entity = React.lazy(() => import("./Entity"));
 const TemplateEditor = React.lazy(() => import("./Template/Editor"));
 const EntityList = React.lazy(() => import("./Entity/list/index"));
@@ -82,7 +82,7 @@ class Routes extends React.Component {
                       path="/Enum/list"
                       component={EnumList}
                     />
-                    <Route exact={true} path="/" component={TemplateEditor} />
+                    <Route exact={true} path="/" Redirect="/Entity/list" />
                   </Switch>
                 </React.Suspense>
               </div>

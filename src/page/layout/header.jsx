@@ -6,10 +6,10 @@ import { logout } from '@domain/user/action';
 import { Avatar, Dropdown, Menu } from 'antd';
 
 const Navs = [
-    {
-        label: '首页',
-        value: '/',
-    },
+    // {
+    //     label: '首页',
+    //     value: '/',
+    // },
     {
         label: '实体',
         value: '/Entity/list',
