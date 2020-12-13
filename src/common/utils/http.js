@@ -12,7 +12,6 @@ export function httpBase(url) {
         headers: {
             'content-type': 'application/json',
             'token': getToken(),
-            'Access-Control-Allow-Origin': '*',
         }
     })
 }

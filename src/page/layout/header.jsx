@@ -30,12 +30,12 @@ const Navs = [
 
 const menu = (
     <Menu>
-        <Menu.Item key="0">
+        {/* <Menu.Item key="0">
             <Link to="/users/blogs">我的创作</Link>
         </Menu.Item>
         <Menu.Item key="1">
             <Link to="/users/settings/changepassword">编辑资料</Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="2">
             <a href="javascript:;" onClick={logout}>退出</a>
         </Menu.Item>
