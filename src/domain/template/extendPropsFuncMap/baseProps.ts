@@ -23,6 +23,11 @@ export function baseProps() {
             key: "readonly",
             value: false,
         },
+        {
+            type: "style",
+            key: "hide",
+            value: false,
+        },
     ];
 
     return defaultProps;

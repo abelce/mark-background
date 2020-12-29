@@ -1,0 +1,72 @@
+.mark-list {
+    .mark-item {
+        // margin: 4px;
+        padding: 4px 8px;
+        background-color: #ffffff;
+        display: flex;
+        margin: 0 4px 8px 0;
+    }
+    .mark-item,
+    .title,
+    .url {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .title {
+        color: #333;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    // .url {
+    //     font-size: 12px;
+    // }
+    .url,
+    .meta {
+        font-size: 12px;
+        color: #c2c5cd;
+    }
+    .meta {
+        margin-top: 2px;
+    }
+    .content {
+        flex: 1;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .left {
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .right {
+        width: 60px;
+        // text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        :global {
+            .iconfont {
+                font-size: 16px;
+                cursor: pointer;
+                &:before {
+                    color: #1890ff;
+                }
+            }
+        }
+    }
+}
+
+.actionMenu {
+    :global {
+        .ant-dropdown-menu-item {
+            font-size: 12px;
+            a {
+                color: #1890ff;
+            }
+        }
+    }
+}

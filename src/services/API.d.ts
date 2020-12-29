@@ -1,14 +1,3 @@
-/*
- * File: API.d.ts
- * Project: wait
- * File Created: Tuesday, 24th November 2020 11:40:14 pm
- * Author: zxtang (1061225829@qq.com)
- * -----
- * Last Modified: Tuesday, 24th November 2020 11:40:16 pm
- * Modified By: zxtang (1061225829@qq.com>)
- * -----
- * Copyright 2017 - 2020 Your Company, Your Company
- */
 declare namespace API {
   export interface CurrentUser {
     avatar?: string;

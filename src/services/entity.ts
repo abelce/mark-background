@@ -1,6 +1,5 @@
 import http from '@/common/utils/http';
 
-
 function getEntityNameLowerCase(entityName: string) {
   if (!entityName) {
     return '';

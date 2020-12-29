@@ -1,11 +1,20 @@
 import { IUser } from '../entity-interfaces/User'
-import { Iundefined } from '../entity-interfaces/undefined'
 
 export class User implements IUser {
 
-  客户: Array<number>
+  id: string
+  name: string
+  mobile: string
+  email: string
+  avatar: string
+  birthday: number
 
-  constructor({客户}: IUser={}){
-    this.客户 = 客户 || [];
+  constructor({id, name, mobile, email, avatar, birthday}: IUser={}){
+    this.id = id;
+    this.name = name;
+    this.mobile = mobile;
+    this.email = email;
+    this.avatar = avatar;
+    this.birthday = birthday;
   }
 }

@@ -2,11 +2,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Qiniu = require('qiniu-cdn-webpack-plugin')
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const CDN_HOST = `http://cdn.vwood.xyz`
 var webpackConfig = {
     mode: getMode(),
     devtool: 'cheap-module-eval-source-map',
@@ -14,7 +11,7 @@ var webpackConfig = {
         disableHostCheck: true,
         host: '0.0.0.0',
         hot: true,
-        port: 3010,
+        port: 3000,
         contentBase: __dirname + '/build',
         historyApiFallback: true,
         proxy: {
@@ -26,11 +23,11 @@ var webpackConfig = {
         }
     },
     entry: {
-        app: `${__dirname}/src/page/App.js`,
+        app: `${__dirname}/src/page/App.tsx`,
     },
     output: {
         path: `${__dirname}/build/`,
-        publicPath: '/',
+        publicPath:  isDev() ? '/' : './',
         filename: isDev() ? '[name].[hash].js' : '[name].[chunkhash].js',
     },
     module: {
@@ -59,17 +56,17 @@ var webpackConfig = {
             },
             {
                 test: /\/src\/common\/assets\/style\//,
+                exclude: /\/src\/common\/assets\/style\/iconfont\//,
                 loader: scssRules({
                     global: true,
                 }),
             },
             {
-                test: /\.jsx$|\.js$/,
+                test: /\.jsx?$/,
                 include: /src/,
                 exclude: [/axios/, /node_modules/, /src\/common\/assets/],
                 loader: 'babel-loader',
                 options: {
-                    // babelrc: false,
                     compact: false,
                     sourceMap: false,
                     comments: false,
@@ -81,14 +78,13 @@ var webpackConfig = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            //   babelrc: false,
                             compact: false,
                             sourceMap: false,
                             comments: false,
-                            shouldPrintComment: (value = '') =>
-                                value.indexOf('@license') >= 0 ||
-                                value.indexOf('@preserve') >= 0 ||
-                                /webpack[A-Z]/.test(value),
+                            // shouldPrintComment: (value = '') =>
+                            //     value.indexOf('@license') >= 0 ||
+                            //     value.indexOf('@preserve') >= 0 ||
+                            //     /webpack[A-Z]/.test(value),
                         },
                     },
                     {
@@ -102,6 +98,14 @@ var webpackConfig = {
                 ],
                 exclude: [/node_modules/, /\.scss.ts$/, /\.test.tsx?$/],
             },
+            {
+                test:/.(woff|woff2|eot|ttf|otf|TTF|svg).*?$/,
+                loader: "file-loader",
+                options: {
+                    name: isDev() ? "[name].[ext]" : "[name].[hash:6].[ext]",
+                    outputPath: "font",
+                }
+            }
         ],
         noParse: [require.resolve('lodash')],
     },
@@ -116,7 +120,6 @@ var webpackConfig = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
         }),
-        new MonacoWebpackPlugin(['apex', 'azcli', 'bat', 'clojure', 'coffee', 'cpp', 'csharp', 'csp', 'css', 'dockerfile', 'fsharp', 'go', 'handlebars', 'html', 'ini', 'java', 'javascript', 'json', 'less', 'lua', 'markdown', 'msdax', 'mysql', 'objective', 'perl', 'pgsql', 'php', 'postiats', 'powerquery', 'powershell', 'pug', 'python', 'r', 'razor', 'redis', 'redshift', 'ruby', 'rust', 'sb', 'scheme', 'scss', 'shell', 'solidity', 'sql', 'st', 'swift', 'typescript', 'vb', 'xml', 'yaml'])
     ],
     resolve: {
         alias: {
@@ -125,6 +128,7 @@ var webpackConfig = {
             "@utils": __dirname + "/src/utils",
             "@/utils": __dirname + "/src/utils",
             "@page": __dirname + "/src/page",
+            "@/page": __dirname + "/src/page",
             "@domain": __dirname + "/src/domain",
             "@/domain": __dirname + "/src/domain",
             "@components": __dirname + "/src/components",
@@ -167,22 +171,6 @@ var webpackConfig = {
             },
         },
         minimizer: [
-            // new UglifyJsPlugin({
-            //     exclude: [/\.min\.js$/],
-            //     cache: true,
-            //     parallel: true,
-            //     sourceMap: false,
-            //     extractComments: false,
-            //     uglifyOptions: {
-            //         compress: {
-            //             unused: true,
-            //             drop_debugger: true,
-            //         },
-            //         output: {
-            //             comments: false,
-            //         },
-            //     },
-            // }),
             new TerserPlugin({
                 exclude: [/\.min\.js$/],
                 parallel: true,
@@ -206,17 +194,6 @@ if (isProd()) {
             chunkFilename: '[id].[chunkhash].css',
         })
     );
-    // webpackConfig.plugins.push(
-    //     new Qiniu({
-    //         accessKey: 'ZUeDQBNFMaae9jrxYmFNNNfaUUfhAFKyLbPutdZF',
-    //         secretKey: 'Sb5MCKPs4bM-qexChWNHVL0QM0fgg575lYQAWnLL',
-    //         bucket: 'vwood',
-    //         zone: 'Zone_z2',
-    //         exclude: /(\.html)|(\.map)/,
-    //         refreshCDN: CDN_HOST,
-    //         // refreshFilter: /(.*\.js)|(.*\.css)/,
-    //     })
-    // )
 }
 
 module.exports = webpackConfig;
@@ -259,11 +236,4 @@ function isProd() {
 
 function getMode() {
     return isDev() ? 'development' : 'production';
-}
-
-function getPublicPath() {
-    if (isProd()) {
-        return CDN_HOST + '/';
-    }
-    return '/';
 }

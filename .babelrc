@@ -8,10 +8,10 @@
     "@babel/preset-typescript"
   ],
   "plugins": [
+    ["@babel/plugin-syntax-dynamic-import"],
     ["relay", { "artifactDirectory": "./src/__generated__/relay/" }],
     ["import", {
       "libraryName": "antd",
-      "libraryDirectory": "es",
       "style": "css"
     }],
     ["@babel/plugin-transform-runtime"],
@@ -20,11 +20,11 @@
       "decoratorsBeforeExport": true
     }],
   ],
-  "env": {
-    "production": {
-      "plugins": [
-        "transform-remove-console"
-      ]
-    }
-  }
+  // "env": {
+  //   "production": {
+  //     "plugins": [
+  //       "transform-remove-console"
+  //     ]
+  //   }
+  // }
 }
