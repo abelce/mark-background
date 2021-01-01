@@ -14,3 +14,5 @@ export const F_Mark_createTime = 'createTime'
 export const F_Mark_lastUpdatedTime = 'lastUpdatedTime'
 //是否星标
 export const F_Mark_isStar = 'isStar'
+//分类
+export const F_Mark_type = 'type'

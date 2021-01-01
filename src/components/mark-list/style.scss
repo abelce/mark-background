@@ -29,6 +29,10 @@
     }
     .meta {
         margin-top: 2px;
+        display: flex;
+        > div {
+            margin-right: 4px;
+        }
     }
     .content {
         flex: 1;

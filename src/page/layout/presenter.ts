@@ -7,12 +7,14 @@ import {
 } from "@domain/enums";
 import { Search } from "@domain/search";
 import {
+  ENUM_MarkType_default,
   ENUM_SearchOperatorEnum_Equal,
   ENUM_SearchOperatorEnum_Includes,
   F_Mark_isDeleted,
   F_Mark_isRead,
   F_Mark_isStar,
   F_Mark_title,
+  F_Mark_type,
   F_Mark_url,
   IMark,
   Mark,
@@ -28,6 +30,13 @@ export class Presenter {
   public readonly entityName: string = "";
 
   public id: string = "";
+
+  @observable
+  public filter = {
+    nav: 'all',
+    type: ENUM_MarkType_default,
+    text: '',
+  }
 
   @observable
   public selectedItems: Array<string> = [];
@@ -138,10 +147,11 @@ export class Presenter {
   getSearch = () => {
     const search = new Search();
 
-    if (this.type === "star") {
+    if (this.filter.nav === "star") {
       search.addItem(F_Mark_isStar, ENUM_SearchOperatorEnum_Equal, true);
-    } else if (this.type === "notRead") {
-      search.addItem(F_Mark_isRead, ENUM_SearchOperatorEnum_Equal, false);
+    }
+    if (this.filter.type && this.filter.type !== ENUM_MarkType_default) {
+      search.addItem(F_Mark_type, ENUM_SearchOperatorEnum_Equal, this.filter.type);
     }
 
     // if (this.search) {
@@ -162,8 +172,8 @@ export class Presenter {
       list = search.exec(list, search.list);
     }
 
-    if (this.search) {
-      return list.filter( item => item.title.includes(this.search) ||  item.url.includes(this.search));
+    if (this.filter.text) {
+      return list.filter( item => item.title.includes(this.filter.text) ||  item.url.includes(this.filter.text));
     }
     return list;
   };
@@ -171,7 +181,22 @@ export class Presenter {
   @action
   setType = (type: string) => {
     runInAction(() => {
-      this.type = type;
+      this.filter= {
+        ...this.filter,
+        type,
+      }
+      this.selectedItems = [];
+      this.currentItem = null;
+    });
+  };
+
+  @action
+  setNav = (nav: string) => {
+    runInAction(() => {
+      this.filter= {
+        ...this.filter,
+        nav,
+      }
       this.selectedItems = [];
       this.currentItem = null;
     });
@@ -181,6 +206,7 @@ export class Presenter {
   newCurrentItem = () => {
     this.currentItem = new Mark({
       id: uuidv4(),
+      type: ENUM_MarkType_default,
       createTime: +new Date(),
     });
   };
@@ -207,17 +233,21 @@ export class Presenter {
           ...this.data.slice(index + 1),
         ];
       } else {
-        this.data.push(this.currentItem);
+        this.data.unshift(this.currentItem);
       }
       this.setStorage(this.data);
+      this.currentItem = null;
     });
   };
 
   // 搜索
   @action
   onSearch = (data: string) => {
-    const val = data.trim();
-    this.search = val;
+    const text = data.trim();
+    this.filter = {
+      ...this.filter,
+      text,
+    }
   }
 
   @action

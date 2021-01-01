@@ -7,3 +7,4 @@ export * from './entity-classes';
 export * from './enums';
 export * from './enum-objects';
 export * from './enums-declares';
+export * from './enum-arrays';

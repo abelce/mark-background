@@ -1,11 +1,12 @@
 import * as React from "react";
-import { IMark } from "@gen";
+import { ENUM_array_MarkType, IMark } from "@gen";
 import * as Style from "./style.scss";
 import * as dayjs from "dayjs";
 import { Presenter } from "@page/layout/presenter";
 import { Observer } from "mobx-react";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Dropdown, Menu, Modal } from "antd";
+import { Dropdown, Menu, Modal, Tag } from "antd";
+const { useMemo } = React;
 
 interface IMarkList {
   list: Array<IMark>;
@@ -65,8 +66,13 @@ function getActionMenus(data: IMark, presenter: Presenter) {
 
 function MarkItem(props: IMarkItem) {
   const {
-    data: { id, title, url, createTime, isStar },
+    data: { id, title, url, createTime, isStar, type },
   } = props;
+
+  const typeObject = useMemo(() => {
+    return ENUM_array_MarkType.find((ty) => ty.value === type);
+  }, [type]);
+
   return (
     <Observer
       render={() => (
@@ -79,6 +85,13 @@ function MarkItem(props: IMarkItem) {
             <div className={Style.url}>{url}</div>
             <div className={Style.meta}>
               <div>{dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")}</div>
+              {typeObject && (
+                <div className={Style.tag}>
+                  <Tag>
+                    {typeObject.description}
+                    </Tag>
+                </div>
+              )}
             </div>
           </a>
           <div className={Style.right}>

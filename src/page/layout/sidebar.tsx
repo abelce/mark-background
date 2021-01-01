@@ -28,8 +28,8 @@ function Sidebar(props: ISidebar) {
         {
             TYPES.map(item => <div 
                 key={item.value} 
-                className={cs(Style.sidebar_item, {[Style.sidebar_item_active]: props.presenter.type === item.value})}
-                onClick={() => props.presenter.setType(item.value)}>
+                className={cs(Style.sidebar_item, {[Style.sidebar_item_active]: props.presenter.filter.nav === item.value})}
+                onClick={() => props.presenter.setNav(item.value)}>
                 <span>{item.title}</span>
             </div>)
         }

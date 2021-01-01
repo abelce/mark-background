@@ -15,4 +15,6 @@ export interface IMark {
   lastUpdatedTime?: number;
   //是否星标
   isStar?: boolean;
+  //分类
+  type?: string;
 }
