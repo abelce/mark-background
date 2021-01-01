@@ -34,7 +34,7 @@ export class Presenter {
   @observable
   public filter = {
     nav: 'all',
-    type: ENUM_MarkType_default,
+    type: 'all',
     text: '',
   }
 
@@ -150,7 +150,7 @@ export class Presenter {
     if (this.filter.nav === "star") {
       search.addItem(F_Mark_isStar, ENUM_SearchOperatorEnum_Equal, true);
     }
-    if (this.filter.type && this.filter.type !== ENUM_MarkType_default) {
+    if (this.filter.type && this.filter.type !== 'all') {
       search.addItem(F_Mark_type, ENUM_SearchOperatorEnum_Equal, this.filter.type);
     }
 

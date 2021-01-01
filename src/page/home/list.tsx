@@ -9,7 +9,13 @@ import { Detail } from './detail';
 import { MySearch } from './search';
 import * as Style from './style.scss';
 
-const TYPE_OPTIONS =  ENUM_array_MarkType.map(type => ({label: type.description, value: type.value}));
+const TYPE_OPTIONS =  [
+    {
+        value: 'all',
+        label: '全部分类',
+    },
+    ...ENUM_array_MarkType.map(type => ({label: type.description, value: type.value}))
+];
 
 interface IList {
     presenter: Presenter;
