@@ -153,27 +153,21 @@ export class Presenter {
     if (this.filter.type && this.filter.type !== 'all') {
       search.addItem(F_Mark_type, ENUM_SearchOperatorEnum_Equal, this.filter.type);
     }
-
-    // if (this.search) {
-    //   search.addItem(
-    //     F_Mark_title,
-    //     ENUM_SearchOperatorEnum_Includes,
-    //     this.search
-    //   );
-    //   search.addItem(F_Mark_url, ENUM_SearchOperatorEnum_Includes, this.search);
-    // }
     return search;
   };
 
   getRenderData = () => {
-    const search = this.getSearch();
     let list = this.data;
+    const search = this.getSearch();
     if (search.list.length) {
       list = search.exec(list, search.list);
     }
 
     if (this.filter.text) {
-      return list.filter( item => item.title.includes(this.filter.text) ||  item.url.includes(this.filter.text));
+      list = list.filter( item => item.title.includes(this.filter.text) ||  item.url.includes(this.filter.text));
+    }
+    if (!Array.isArray(list)) {
+      list = [];
     }
     return list;
   };
@@ -258,7 +252,9 @@ export class Presenter {
 
   @action
   deleteMark = (id: string) => {
-    const data = this.data.filter ((mark: IMark) => mark.id !== id);
-    this.setStorage(data);
+    console.log(id);
+    this.data = this.data.filter ((mark: IMark) => mark.id !== id);
+    console.log(this.data);
+    this.setStorage(this.data);
   }
 }

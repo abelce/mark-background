@@ -9,7 +9,6 @@ import { Dropdown, Menu, Modal, Tag } from "antd";
 const { useMemo } = React;
 
 interface IMarkList {
-  list: Array<IMark>;
   presenter: Presenter;
 }
 
@@ -18,7 +17,7 @@ export function MarkList(props: IMarkList) {
     <Observer
       render={() => (
         <div className={Style["mark-list"]}>
-          {props.list.map((item) => (
+          {props.presenter.getRenderData().map((item: IMark) => (
             <MarkItem key={item.id} data={item} presenter={props.presenter} />
           ))}
         </div>
@@ -52,13 +51,13 @@ function showDeleteConfirm(data: IMark, presenter: Presenter) {
 function getActionMenus(data: IMark, presenter: Presenter) {
   return (
     <Menu className={Style.actionMenu}>
-      <Menu.Item>
-        <a href="javascript:;" onClick={() => presenter.setCurrentItem(data)}>
+      <Menu.Item onClick={() => presenter.setCurrentItem(data)}>
+        <a href="javascript:;">
           编辑
         </a>
       </Menu.Item>
-      <Menu.Item danger>
-        <span onClick={() => showDeleteConfirm(data, presenter)}>删除</span>
+      <Menu.Item danger onClick={() => showDeleteConfirm(data, presenter)}>
+        <span>删除</span>
       </Menu.Item>
     </Menu>
   );

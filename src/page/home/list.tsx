@@ -62,7 +62,7 @@ export default class List extends React.Component<IList> {
                     {this.renderType()}
                     <div className={Style.main}>
                         <div className={Style.list}>
-                            <MarkList list={this.props.presenter.getRenderData() || []} presenter={this.props.presenter} />
+                            <MarkList presenter={this.props.presenter} />
                         </div>
                         {
                         this.props.presenter.currentItem && <Detail presenter={this.props.presenter}/>   
