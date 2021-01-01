@@ -257,7 +257,7 @@ export class Presenter {
   }
 
   @action
-  deleteMark =  async(id: string) => {
+  deleteMark = (id: string) => {
     const data = this.data.filter ((mark: IMark) => mark.id !== id);
     this.setStorage(data);
   }
