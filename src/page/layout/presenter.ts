@@ -164,7 +164,11 @@ export class Presenter {
     }
 
     if (this.filter.text) {
-      list = list.filter( item => item.title.includes(this.filter.text) ||  item.url.includes(this.filter.text));
+      list = list.filter( item => {
+        const titleLower = item.title.toLowerCase()
+        const urlLower = item.url.toLowerCase();
+        return titleLower.includes(this.filter.text.toLowerCase()) || urlLower.includes(this.filter.text.toLowerCase())
+      })
     }
     if (!Array.isArray(list)) {
       list = [];
