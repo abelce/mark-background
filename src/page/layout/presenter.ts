@@ -22,7 +22,7 @@ import {
 import { createEntity, getEntityByID, updateEntity } from "@services/entity";
 import { getStorage, setStorage } from "@services/storage";
 import _ from "lodash";
-import { action, observable, runInAction } from "mobx";
+import { action, observable, runInAction, toJS } from "mobx";
 import { v4 as uuidv4 } from "uuid";
 
 export class Presenter {
@@ -252,9 +252,9 @@ export class Presenter {
 
   @action
   deleteMark = (id: string) => {
-    console.log(id);
-    this.data = this.data.filter ((mark: IMark) => mark.id !== id);
-    console.log(this.data);
-    this.setStorage(this.data);
+    runInAction(() => {
+      const data = this.data.filter ((mark: IMark) => mark.id !== id);
+      this.setStorage(toJS(data));
+    })
   }
 }
