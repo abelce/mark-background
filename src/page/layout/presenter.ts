@@ -229,7 +229,7 @@ export class Presenter {
       } else {
         this.data.unshift(this.currentItem);
       }
-      this.setStorage(this.data);
+      this.setStorage(toJS(this.data));
       this.currentItem = null;
     });
   };
