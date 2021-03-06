@@ -1,6 +1,6 @@
 import * as React from 'react';
+// @ts-ignore
 import * as Style from './style.scss';
-// import Home from '@/page/home';
 import HomeList from '@/page/home/list';
 import Sidebar from './sidebar';
 import { Presenter } from './presenter';

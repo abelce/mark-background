@@ -7,6 +7,7 @@ import { Observer, observer } from 'mobx-react';
 import * as React from 'react';
 import { Detail } from './detail';
 import { MySearch } from './search';
+//@ts-ignore
 import * as Style from './style.scss';
 
 const TYPE_OPTIONS =  [
